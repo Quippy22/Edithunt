@@ -41,6 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Local apps
+    'core',
+
+    # Third-party apps
     'tailwind',
     'theme', # This must be the last app
 ]
@@ -134,4 +139,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Django-Tailwind Configuration
 TAILWIND_APP_NAME = 'theme'
+
+
+# Custom User Model
+AUTH_USER_MODEL = 'core.CustomUser'
 
