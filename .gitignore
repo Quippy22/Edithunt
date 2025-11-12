@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django
+*.log
+*.pot
+*.mo
+*.js.map
+*.css.map
+db.sqlite3
+/media/
+/static_root/
+
+# Node.js (for Tailwind)
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnp/
+.pnp.js
+
+# Editor-specific files
+.idea/ # For PyCharm/IntelliJ users, still good to include
+*.swp
+*~
+.DS_Store
+
+# Gemini-specific files
+_gemini_project_notes.md
