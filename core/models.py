@@ -11,7 +11,7 @@ class CustomUser(AbstractUser):
         ("editor", "Editor"),
     )
     # The role of the user in the Edithunt platform
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, blank=True, null=True)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='editor')
 
 
 # This model represents a video editing request posted by a Creator.
@@ -30,6 +30,8 @@ class Bounty(models.Model):
     title = models.CharField(max_length=255)
     # Detailed description of what needs to be edited
     description = models.TextField()
+    # Link to the raw footage for editors to download
+    footage_link = models.URLField(blank=True)
     # The amount of money offered for the winning edit
     budget = models.DecimalField(max_digits=8, decimal_places=2)
     # The date and time by which submissions are due
