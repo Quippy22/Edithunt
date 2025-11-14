@@ -9,7 +9,7 @@ from .forms import CustomUserCreationForm
 
 # Registration view
 class SignUpView(CreateView):
-    fom_class = CustomUserCreationForm
+    form_class = CustomUserCreationForm
     success_url = reverse_lazy("login")  # Redirect to login page after succesfull registration
     template_name = "registration/signup.html"
 

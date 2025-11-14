@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import CustomUser, Bounty, Submission
 
-# Register your models here.
+admin.site.register(CustomUser)
+admin.site.register(Bounty)
+admin.site.register(Submission)

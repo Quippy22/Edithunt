@@ -1,0 +1,46 @@
+<nav class="bg-white dark:bg-gray-800 shadow-lg z-50 relative">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+            <div>
+                <a href="{% url 'home' %}" class="text-2xl font-bold text-purple-600 dark:text-purple-400">Edithunt</a>
+            </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <!-- Future links like Bounties, Profile, etc. will go here -->
+            </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <div class="flex items-center">
+                    <span class="mr-2 text-sm text-gray-600 dark:text-gray-300">Light</span>
+                    <label for="theme-toggle" class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" id="theme-toggle" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
+                    </label>
+                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-300">Dark</span>
+                </div>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="btn-primary">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn-primary">Login</a>
+                {% endif %}
+            </div>
+            <!-- Mobile menu button -->
+            <div class="md:hidden flex items-center">
+                <button class="mobile-menu-button">
+                    <svg class="w-6 h-6 text-gray-600 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile menu -->
+    <div class="mobile-menu hidden md:hidden">
+        <!-- Future links -->
+        <div class="px-4 py-2">
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="block w-full text-center btn-primary">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="block w-full text-center btn-primary">Login</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
