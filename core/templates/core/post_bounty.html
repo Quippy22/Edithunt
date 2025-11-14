@@ -1,0 +1,29 @@
+{% extends 'theme/base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h1 class="form-heading">Post a New Bounty</h1>
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div>
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <p class="mt-2 text-sm text-gray-500">{{ field.help_text }}</p>
+                {% endif %}
+                {% for error in field.errors %}
+                    <p class="mt-2 text-sm text-red-600">{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <div>
+            <button type="submit" class="w-full flex justify-center btn-primary">
+                Post Bounty
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

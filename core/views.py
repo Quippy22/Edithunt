@@ -1,16 +1,21 @@
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView
 
-from .forms import CustomUserCreationForm
+from .forms import BountyForm, CustomUserCreationForm
+from .models import Bounty
 
 
 # Registration view
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy("login")  # Redirect to login page after succesfull registration
+    success_url = reverse_lazy(
+        "login"
+    )  # Redirect to login page after succesfull registration
     template_name = "registration/signup.html"
 
 
@@ -27,4 +32,19 @@ class CustomLoginView(LoginView):
 # Logout view
 def logout_view(request):
     logout(request)
-    return redirect('login') # Redirect to login page
+    return redirect("login")  # Redirect to login page
+
+
+# Post bounty view
+@method_decorator(login_required, name="dispatch")
+class PostBountyView(CreateView):
+    model = Bounty
+    form_class = BountyForm
+    template_name = "core/post_bounty.html"
+    # Redirect to home page after a successful post
+    # todo: maybe think this over
+    success_url = reverse_lazy("home")
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super().form_valid(form)
