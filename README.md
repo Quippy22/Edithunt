@@ -40,3 +40,13 @@ It's all about speed, skill, and a little bit of friendly competition to get cre
 ## Developer's Notes (or: My Journey into the Digital Wilderness)
 
 As the sole architect (and occasional bug-whisperer) of this digital endeavor, I'm learning a *lot*. If you find a stray semicolon or a feature that occasionally decides to take a coffee break, please know it's all part of the "charming prototype" experience. This project is a testament to late-night coding sessions, countless `print()` statements, and the unwavering belief that one day, I'll understand why that one CSS rule just won't apply. It's a work in progress, much like my understanding of full-stack development!
+
+---
+
+## Official Time Log
+
+Based on a rigorous analysis of `git commit` timestamps, the official time spent in the code mines is:
+
+**3 hour, 44 minutes**
+
+...give or take a few existential crises and a dozen "why isn't this working" Google searches.
