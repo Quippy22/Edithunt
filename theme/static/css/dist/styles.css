@@ -603,67 +603,43 @@
       line-height: var(--tw-leading, var(--text-xl--line-height));
     }
   }
-  @media (prefers-color-scheme: dark) {
-    .dark\:border-gray-600 {
-      border-color: var(--color-gray-600);
+  .dark\:border-gray-600:where(.dark, .dark *) {
+    border-color: var(--color-gray-600);
+  }
+  .dark\:bg-gray-700:where(.dark, .dark *) {
+    background-color: var(--color-gray-700);
+  }
+  .dark\:bg-gray-800:where(.dark, .dark *) {
+    background-color: var(--color-gray-800);
+  }
+  .dark\:bg-gray-900:where(.dark, .dark *) {
+    background-color: var(--color-gray-900);
+  }
+  .dark\:text-gray-200:where(.dark, .dark *) {
+    color: var(--color-gray-200);
+  }
+  .dark\:text-gray-300:where(.dark, .dark *) {
+    color: var(--color-gray-300);
+  }
+  .dark\:text-gray-400:where(.dark, .dark *) {
+    color: var(--color-gray-400);
+  }
+  .dark\:text-gray-500:where(.dark, .dark *) {
+    color: var(--color-gray-500);
+  }
+  .dark\:text-purple-400:where(.dark, .dark *) {
+    color: var(--color-purple-400);
+  }
+  .dark\:peer-focus\:ring-purple-800:where(.dark, .dark *):is(:where(.peer):focus ~ *) {
+    --tw-ring-color: var(--color-purple-800);
+  }
+  @media (hover: hover) {
+    .dark\:hover\:text-purple-300:where(.dark, .dark *):hover {
+      color: var(--color-purple-300);
     }
   }
-  @media (prefers-color-scheme: dark) {
-    .dark\:bg-gray-700 {
-      background-color: var(--color-gray-700);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    .dark\:bg-gray-800 {
-      background-color: var(--color-gray-800);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    .dark\:bg-gray-900 {
-      background-color: var(--color-gray-900);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    .dark\:text-gray-200 {
-      color: var(--color-gray-200);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    .dark\:text-gray-300 {
-      color: var(--color-gray-300);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    .dark\:text-gray-400 {
-      color: var(--color-gray-400);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    .dark\:text-gray-500 {
-      color: var(--color-gray-500);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    .dark\:text-purple-400 {
-      color: var(--color-purple-400);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    .dark\:peer-focus\:ring-purple-800:is(:where(.peer):focus ~ *) {
-      --tw-ring-color: var(--color-purple-800);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    @media (hover: hover) {
-      .dark\:hover\:text-purple-300:hover {
-        color: var(--color-purple-300);
-      }
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    .dark\:focus\:border-purple-400:focus {
-      border-color: var(--color-purple-400);
-    }
+  .dark\:focus\:border-purple-400:where(.dark, .dark *):focus {
+    border-color: var(--color-purple-400);
   }
 }
 @layer components {
@@ -695,21 +671,15 @@
       background-color: var(--color-gray-300);
     }
   }
-  @media (prefers-color-scheme: dark) {
-    .btn-secondary {
-      background-color: var(--color-gray-700);
-    }
+  .btn-secondary:where(.dark, .dark *) {
+    background-color: var(--color-gray-700);
   }
-  @media (prefers-color-scheme: dark) {
-    .btn-secondary {
-      color: var(--color-gray-200);
-    }
+  .btn-secondary:where(.dark, .dark *) {
+    color: var(--color-gray-200);
   }
-  @media (prefers-color-scheme: dark) {
-    @media (hover: hover) {
-      .btn-secondary:hover {
-        background-color: var(--color-gray-600);
-      }
+  @media (hover: hover) {
+    .btn-secondary:where(.dark, .dark *):hover {
+      background-color: var(--color-gray-600);
     }
   }
   .form-input {
@@ -735,25 +705,17 @@
     --tw-outline-style: none;
     outline-style: none;
   }
-  @media (prefers-color-scheme: dark) {
-    .form-input {
-      border-color: var(--color-gray-600);
-    }
+  .form-input:where(.dark, .dark *) {
+    border-color: var(--color-gray-600);
   }
-  @media (prefers-color-scheme: dark) {
-    .form-input {
-      background-color: var(--color-gray-700);
-    }
+  .form-input:where(.dark, .dark *) {
+    background-color: var(--color-gray-700);
   }
-  @media (prefers-color-scheme: dark) {
-    .form-input {
-      color: var(--color-gray-200);
-    }
+  .form-input:where(.dark, .dark *) {
+    color: var(--color-gray-200);
   }
-  @media (prefers-color-scheme: dark) {
-    .form-input:focus {
-      border-color: var(--color-purple-400);
-    }
+  .form-input:where(.dark, .dark *):focus {
+    border-color: var(--color-purple-400);
   }
 }
 @property --tw-space-x-reverse {
