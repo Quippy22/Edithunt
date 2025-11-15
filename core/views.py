@@ -4,11 +4,10 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 
 from .forms import BountyForm, CustomUserCreationForm
 from .models import Bounty
-
 
 # Registration view
 class SignUpView(CreateView):
@@ -48,3 +47,13 @@ class PostBountyView(CreateView):
     def form_valid(self, form):
         form.instance.creator = self.request.user
         return super().form_valid(form)
+
+# Creator dahsboard view
+@method_decorator(login_required, name="dispatch")
+class CreatorDashboardView(ListView):
+    model = Bounty
+    template_name = "core/creator_dashboard.html"
+    context_object_name = "bounties"
+
+    def get_queryset(self):
+        return Bounty.objects.filter(creator=self.request.user)

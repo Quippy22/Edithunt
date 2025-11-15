@@ -1,0 +1,55 @@
+{% extends 'theme/base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Your Bounties</h1>
+
+    {% if bounties %}
+        <div class="space-y-4">
+            {% for bounty in bounties %}
+                <details class="bounty-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                    <summary class="bounty-summary p-6 flex justify-between items-center cursor-pointer">
+                        <span class="font-bold text-lg text-purple-600 dark:text-purple-400">{{ bounty.title }}</span>
+                        <div class="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
+                            <span>
+                                {% if bounty.budget_max %}
+                                    {{ bounty.budget_min }} - {{ bounty.budget_max }} EUR
+                                {% else %}
+                                    {{ bounty.budget_min }} EUR
+                                {% endif %}
+                            </span>
+                            <span>{{ bounty.deadline|date:"M d, Y" }}</span>
+                        </div>
+                    </summary>
+                    <div class="bounty-details p-6 border-t border-gray-200 dark:border-gray-700">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="md:col-span-1">
+                                <h3 class="text-lg font-bold mb-2 dark:text-white">Details</h3>
+                                <p class="text-black dark:text-white"><strong>Budget:</strong> 
+                                    {% if bounty.budget_max %}
+                                        {{ bounty.budget_min }} - {{ bounty.budget_max }} EUR
+                                    {% else %}
+                                        {{ bounty.budget_min }} EUR
+                                    {% endif %}
+                                </p>
+                                <p class="text-black dark:text-white"><strong>Deadline:</strong> {{ bounty.deadline|date:"M d, Y H:i" }}</p>
+                            </div>
+                            <div class="md:col-span-2">
+                                <h3 class="text-lg font-bold mb-2 dark:text-white">Description</h3>
+                                <p class="text-gray-700 dark:text-gray-300">{{ bounty.description }}</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-lg font-bold mb-2 dark:text-white">Submissions</h3>
+                            <p class="text-gray-700 dark:text-gray-300">Submissions will be listed here.</p>
+                        </div>
+                    </div>
+                </details>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-gray-700 dark:text-gray-300">You haven't posted any bounties yet.</p>
+        <a href="{% url 'post_bounty' %}" class="btn-primary mt-4 inline-block">Post a New Bounty</a>
+    {% endif %}
+</div>
+{% endblock %}
