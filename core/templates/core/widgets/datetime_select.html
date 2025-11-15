@@ -1,8 +1,14 @@
+<!-- Container for the date and time selection dropdowns -->
 <div class="deadline-selects-container">
+    <!-- Loop through each sub-widget (day, month, year, hour, minute dropdowns) -->
     {% for widget in widget.subwidgets %}
+        <!-- Wrapper for each individual select dropdown and its potential label -->
         <div class="deadline-select-wrapper">
+            <!-- Include the template for the current sub-widget (renders the <select> tag) -->
             {% include widget.template_name %}
+            <!-- Add 'H' label for the hour dropdown -->
             {% if forloop.counter == 4 %}<span class="time-label">H</span>{% endif %}
+            <!-- Add 'M' label for the minute dropdown -->
             {% if forloop.counter == 5 %}<span class="time-label">M</span>{% endif %}
         </div>
     {% endfor %}

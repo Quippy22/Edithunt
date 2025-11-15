@@ -1,16 +1,23 @@
 <nav class="bg-white dark:bg-gray-800 shadow-lg z-50 relative">
     <div class="container mx-auto px-4">
+        <!-- Flex container for aligning brand, main links, and auth/theme controls -->
         <div class="flex justify-between items-center py-4">
+            <!-- Brand/Logo section -->
             <div>
                 <a href="{% url 'home' %}" class="text-2xl font-bold text-purple-600 dark:text-purple-400">Edithunt</a>
             </div>
+            <!-- Desktop navigation links (hidden on mobile) -->
             <div class="hidden md:flex items-center space-x-4">
-                <!-- Future links like Bounties, Profile, etc. will go here -->
+                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400">Bounties</a>
+                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400">Profile</a>
             </div>
+            <!-- Desktop authentication and theme toggle controls (hidden on mobile) -->
             <div class="hidden md:flex items-center space-x-4">
+                <!-- Theme toggle switch -->
                 <div class="flex items-center">
                     <label for="theme-toggle" class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" value="" id="theme-toggle" class="sr-only peer">
+                        <!-- Toggle track and knob with sun/moon icons -->
                         <div class="toggle-track">
                             <div class="toggle-knob">
                                 <div class="toggle-sun">{% include 'partials/icons/sun.html' %}</div>
@@ -19,13 +26,14 @@
                         </div>
                     </label>
                 </div>
+                <!-- Conditional rendering for Login/Logout buttons based on user authentication status -->
                 {% if user.is_authenticated %}
                     <a href="{% url 'logout' %}" class="btn-primary">Logout</a>
                 {% else %}
                     <a href="{% url 'login' %}" class="btn-primary">Login</a>
                 {% endif %}
             </div>
-            <!-- Mobile menu button -->
+            <!-- Mobile menu button (visible only on mobile) -->
             <div class="md:hidden flex items-center">
                 <button class="mobile-menu-button">
                     <svg class="w-6 h-6 text-gray-600 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -35,10 +43,14 @@
             </div>
         </div>
     </div>
-    <!-- Mobile menu -->
+    <!-- Mobile menu content (hidden by default, toggled by JavaScript) -->
     <div class="mobile-menu hidden md:hidden">
-        <!-- Future links -->
         <div class="px-4 py-2">
+            <a href="#" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400">Bounties</a>
+            <a href="#" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400">Profile</a>
+        </div>
+        <div class="px-4 py-2">
+            <!-- Conditional rendering for Login/Logout buttons in mobile menu -->
             {% if user.is_authenticated %}
                 <a href="{% url 'logout' %}" class="block w-full text-center btn-primary">Logout</a>
             {% else %}

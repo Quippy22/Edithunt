@@ -7,6 +7,10 @@
     <title>Edithunt</title>
     {% block head %}
     {% endblock %}
+    <!-- This script handles the dark mode theme switching.
+         It checks the user's preference from localStorage or their system settings
+         and applies the 'dark' class to the HTML element accordingly.
+         It's placed in the head to prevent a "flash of unstyled content" (FOUC). -->
     <script>
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -22,6 +26,7 @@
     {% block content %}
     {% endblock %}
 
+    <!-- Include the main JavaScript file for the theme -->
     <script src="{% static 'js/theme.js' %}" defer></script>
 </body>
 </html>

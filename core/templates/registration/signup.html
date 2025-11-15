@@ -1,32 +1,43 @@
 {% extends 'theme/base.html' %}
 
 {% block content %}
+<!-- Main container for the authentication page, centering its content -->
 <div class="auth-container">
+    <!-- Card-like container for the signup form -->
     <div class="auth-card">
+        <!-- Heading for the signup form -->
         <h2 class="auth-heading">Create Your Account</h2>
+        <!-- Signup form -->
         <form method="post" class="auth-form">
             {% csrf_token %}
             
+            <!-- Loop through each field in the form to render it dynamically -->
             {% for field in form %}
                 <div class="mb-4">
+                    <!-- Label for the form field -->
                     <label class="block text-gray-700 dark:text-gray-400 text-sm font-bold mb-2" for="{{ field.id_for_label }}">
                         {{ field.label }}
                     </label>
+                    <!-- Input element for the form field -->
                     {{ field }}
+                    <!-- Display help text if available -->
                     {% if field.help_text %}
                         <p class="text-gray-600 dark:text-gray-500 text-xs italic mt-2">{{ field.help_text }}</p>
                     {% endif %}
+                    <!-- Display field-specific errors -->
                     {% for error in field.errors %}
                         <p class="text-red-500 text-xs italic mt-2">{{ error }}</p>
                     {% endfor %}
                 </div>
             {% endfor %}
 
+            <!-- Submit button for the form -->
             <div class="flex items-center justify-between mt-6">
                 <button type="submit" class="btn-primary">
                     Sign Up
                 </button>
             </div>
+            <!-- Link to the login page for users who already have an account -->
             <p class="auth-form-footer">
                 Already have an account? <a href="{% url 'login' %}" class="auth-link">Log In</a>
             </p>
