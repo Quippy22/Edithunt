@@ -31,9 +31,10 @@ class Bounty(models.Model):
     # Detailed description of what needs to be edited
     description = models.TextField()
     # Link to the raw footage for editors to download
-    footage_link = models.URLField(blank=True)
+    footage_link = models.URLField()
     # The amount of money offered for the winning edit
-    budget = models.DecimalField(max_digits=8, decimal_places=2)
+    budget_min = models.DecimalField(max_digits=8, decimal_places=2)
+    budget_max = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     # The date and time by which submissions are due
     deadline = models.DateTimeField()
     # Current status of the bounty

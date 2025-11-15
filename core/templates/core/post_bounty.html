@@ -1,29 +1,91 @@
 {% extends 'theme/base.html' %}
 
 {% block content %}
-<div class="form-container">
-    <h1 class="form-heading">Post a New Bounty</h1>
-    <form method="post" class="space-y-6">
-        {% csrf_token %}
-        
-        {% for field in form %}
-            <div>
-                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                {{ field }}
-                {% if field.help_text %}
-                    <p class="mt-2 text-sm text-gray-500">{{ field.help_text }}</p>
+<div class="post-bounty-container px-6">
+    <div class="rules-container space-y-8">
+        <!-- Tip 1 -->
+        <div class="rounded-lg shadow-lg p-6 text-center">
+            <div class="text-purple-500 mb-4">
+                {% include 'partials/icons/clipboard-list.html' %}
+            </div>
+            <h3 class="text-xl font-bold mb-2 dark:text-white">Detailed Descriptions</h3>
+            <p class="text-gray-600 dark:text-gray-400">Provide a detailed and explicit description of your editing request. The more details you provide, the better the results will be.</p>
+        </div>
+        <!-- Tip 2 -->
+        <div class="rounded-lg shadow-lg p-6 text-center">
+            <div class="text-purple-500 mb-4">
+                {% include 'partials/icons/clock.html' %}
+            </div>
+            <h3 class="text-xl font-bold mb-2 dark:text-white">Reasonable Deadlines</h3>
+            <p class="text-gray-600 dark:text-gray-400">Be mindful of the deadline. Very short deadlines might discourage editors or result in lower quality submissions.</p>
+        </div>
+        <!-- Tip 3 -->
+        <div class="rounded-lg shadow-lg p-6 text-center">
+            <div class="text-purple-500 mb-4">
+                {% include 'partials/icons/cash.html' %}
+            </div>
+            <h3 class="text-xl font-bold mb-2 dark:text-white">Fair Budget</h3>
+            <p class="text-gray-600 dark:text-gray-400">The budget should be fair and reflect the amount of work required. You can set a fixed price by leaving the second budget field empty.</p>
+        </div>
+    </div>
+    <div class="form-container">
+        <h1 class="form-heading">Post a New Bounty</h1>
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                {% if field.name != 'budget_min' and field.name != 'budget_max' and field.name != 'deadline' %}
+                    <div>
+                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}
+                            <p class="mt-2 text-sm text-gray-500">{{ field.help_text }}</p>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <p class="mt-2 text-sm text-red-600">{{ error }}</p>
+                        {% endfor %}
+                    </div>
                 {% endif %}
-                {% for error in field.errors %}
+            {% endfor %}
+
+            <!-- budget fields -->
+            <div>
+                <label class="form-label">Budget</label>
+                <div class="budget-input-wrapper">
+                    {{ form.budget_min }}
+                    <span class="currency-label">-</span>
+                    {{ form.budget_max }}
+                    <span class="currency-label">EUR</span>
+                </div>
+                {% if form.budget_min.help_text %}
+                    <p class="mt-2 text-sm text-gray-500">{{ form.budget_min.help_text }}</p>
+                {% endif %}
+                {% for error in form.budget_min.errors %}
+                    <p class="mt-2 text-sm text-red-600">{{ error }}</p>
+                {% endfor %}
+                {% for error in form.budget_max.errors %}
                     <p class="mt-2 text-sm text-red-600">{{ error }}</p>
                 {% endfor %}
             </div>
-        {% endfor %}
 
-        <div>
-            <button type="submit" class="w-full flex justify-center btn-primary">
-                Post Bounty
-            </button>
-        </div>
-    </form>
+            <!-- deadline field -->
+            <div>
+                <label for="{{ form.deadline.id_for_label }}" class="form-label">{{ form.deadline.label }}</label>
+                {{ form.deadline }}
+                {% if form.deadline.help_text %}
+                    <p class="mt-2 text-sm text-gray-500">{{ form.deadline.help_text }}</p>
+                {% endif %}
+                {% for error in form.deadline.errors %}
+                    <p class="mt-2 text-sm text-red-600">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div>
+                <button type="submit" class="w-full flex justify-center btn-primary">
+                    Post Bounty
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

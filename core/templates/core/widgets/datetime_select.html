@@ -1,0 +1,9 @@
+<div class="deadline-selects-container">
+    {% for widget in widget.subwidgets %}
+        <div class="deadline-select-wrapper">
+            {% include widget.template_name %}
+            {% if forloop.counter == 4 %}<span class="time-label">H</span>{% endif %}
+            {% if forloop.counter == 5 %}<span class="time-label">M</span>{% endif %}
+        </div>
+    {% endfor %}
+</div>
