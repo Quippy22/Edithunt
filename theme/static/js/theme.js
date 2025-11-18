@@ -17,15 +17,3 @@ if (themeToggle) {
         }
     });
 }
-
-// Mobile menu
-const btn = document.querySelector("button.mobile-menu-button");
-const menu = document.querySelector(".mobile-menu");
-
-if (btn) {
-    btn.addEventListener("click", () => {
-        if (menu) {
-            menu.classList.toggle("hidden");
-        }
-    });
-}

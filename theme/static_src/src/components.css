@@ -132,4 +132,44 @@ input[type="number"] {
   .auth-link {
     @apply text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300;
   }
+
+  /* Navbar specific */
+  .nav-link {
+    @apply text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400;
+  }
+  .dropdown-item {
+    @apply block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-purple-500 hover:text-white dark:hover:bg-purple-600;
+  }
+
+  /* Bounty Board specific */
+  .bounty-filter-card {
+    @apply bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 mb-8;
+  }
+  .bounty-filter-label {
+    @apply block text-sm font-medium text-gray-700 dark:text-gray-300;
+  }
+  .bounty-filter-select {
+    @apply shadow appearance-none border rounded w-full py-2 px-3 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-200 leading-tight focus:outline-none focus:border-purple-500 dark:focus:border-purple-400 mt-1 block w-full rounded-md shadow-sm;
+  }
+  .bounty-card {
+    @apply bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden cursor-pointer;
+  }
+  .bounty-card-summary {
+    @apply p-6 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-purple-500;
+  }
+  .bounty-card-title {
+    @apply text-xl font-semibold text-gray-900 dark:text-white;
+  }
+  .bounty-card-budget {
+    @apply text-lg font-bold text-purple-600 dark:text-purple-400;
+  }
+  .bounty-card-meta {
+    @apply text-sm text-gray-500 dark:text-gray-400;
+  }
+  .pagination-button {
+    @apply px-4 py-2 border rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700;
+  }
+  .pagination-button-active {
+    @apply px-4 py-2 border rounded-md text-white bg-purple-600 dark:bg-purple-700;
+  }
 }

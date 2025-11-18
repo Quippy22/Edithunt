@@ -1,45 +1,56 @@
 {% extends 'theme/base.html' %}
-
 {% block content %}
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Submissions for "{{ bounty.title }}"</h1>
-
-    <!-- Card displaying the parent bounty's details -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
-        <h2 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-4">Bounty Details</h2>
-        <p class="text-gray-700 dark:text-gray-300"><strong>Description:</strong> {{ bounty.description }}</p>
-        <p class="text-gray-700 dark:text-gray-300"><strong>Footage Link:</strong> <a href="{{ bounty.footage_link }}" target="_blank" class="text-blue-500 hover:underline">{{ bounty.footage_link }}</a></p>
-        <p class="text-gray-700 dark:text-gray-300"><strong>Budget:</strong> 
-            {% if bounty.budget_max %}
-                {{ bounty.budget_min }} - {{ bounty.budget_max }} EUR
-            {% else %}
-                {{ bounty.budget_min }} EUR
-            {% endif %}
-        </p>
-        <p class="text-gray-700 dark:text-gray-300"><strong>Deadline:</strong> {{ bounty.deadline|date:"M d, Y H:i" }}</p>
-    </div>
-
-    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Submissions</h2>
-    
-    {% if submissions %}
-        <!-- Container for the list of submission cards -->
-        <div class="space-y-4">
-            {% for submission in submissions %}
-                <!-- Individual card for a single submission -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
-                    <p class="text-lg font-semibold text-gray-900 dark:text-white">Submitted by: {{ submission.editor.username }}</p>
-                    <p class="text-gray-700 dark:text-gray-300"><strong>Submitted At:</strong> {{ submission.submitted_at|date:"M d, Y H:i" }}</p>
-                    <p class="text-gray-700 dark:text-gray-300"><strong>File Link:</strong> <a href="{{ submission.file_link }}" target="_blank" class="text-blue-500 hover:underline">{{ submission.file_link }}</a></p>
-                    <!-- Badge shown if the submission is marked as the winner -->
-                    {% if submission.is_winner %}
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">Winner</span>
-                    {% endif %}
-                </div>
-            {% endfor %}
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Submissions for "{{ bounty.title }}"</h1>
+        <!-- Card displaying the parent bounty's details -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-4">Bounty Details</h2>
+            <p class="text-gray-700 dark:text-gray-300">
+                <strong>Description:</strong> {{ bounty.description }}
+            </p>
+            <p class="text-gray-700 dark:text-gray-300">
+                <strong>Footage Link:</strong> <a href="{{ bounty.footage_link }}"
+    target="_blank"
+    class="text-blue-500 hover:underline">{{ bounty.footage_link }}</a>
+            </p>
+            <p class="text-gray-700 dark:text-gray-300">
+                <strong>Budget:</strong>
+                {% if bounty.budget_max %}
+                    {{ bounty.budget_min }} - {{ bounty.budget_max }} EUR
+                {% else %}
+                    {{ bounty.budget_min }} EUR
+                {% endif %}
+            </p>
+            <p class="text-gray-700 dark:text-gray-300">
+                <strong>Deadline:</strong> {{ bounty.deadline|date:"M d, Y H:i" }}
+            </p>
         </div>
-    {% else %}
-        <!-- Message displayed if no submissions have been made yet -->
-        <p class="text-gray-700 dark:text-gray-300">No submissions yet for this bounty.</p>
-    {% endif %}
-</div>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Submissions</h2>
+        {% if submissions %}
+            <!-- Container for the list of submission cards -->
+            <div class="space-y-4">
+                {% for submission in submissions %}
+                    <!-- Individual card for a single submission -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                        <p class="text-lg font-semibold text-gray-900 dark:text-white">Submitted by: {{ submission.editor.username }}</p>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            <strong>Submitted At:</strong> {{ submission.submitted_at|date:"M d, Y H:i" }}
+                        </p>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            <strong>File Link:</strong> <a href="{{ submission.file_link }}"
+    target="_blank"
+    class="text-blue-500 hover:underline">{{ submission.file_link }}</a>
+                        </p>
+                        <!-- Badge shown if the submission is marked as the winner -->
+                        {% if submission.is_winner %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">Winner</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Message displayed if no submissions have been made yet -->
+            <p class="text-gray-700 dark:text-gray-300">No submissions yet for this bounty.</p>
+        {% endif %}
+    </div>
 {% endblock %}

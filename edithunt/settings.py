@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'core',
 
     # Third-party apps
+    'crispy_forms',
+    'crispy_tailwind',
+    'django_filters',
     'tailwind',
     'theme', # This must be the last app
 ]
@@ -148,4 +151,8 @@ AUTH_USER_MODEL = 'core.CustomUser'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# Crispy Forms Configuration
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"
 

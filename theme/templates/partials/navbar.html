@@ -1,23 +1,30 @@
-<nav class="bg-white dark:bg-gray-800 shadow-lg z-50 relative">
+<nav class="bg-white dark:bg-gray-800 shadow-lg z-50 relative"
+     x-data="{ mobileMenuOpen: false }">
     <div class="container mx-auto px-4">
-        <!-- Flex container for aligning brand, main links, and auth/theme controls -->
         <div class="flex justify-between items-center py-4">
-            <!-- Brand/Logo section -->
-            <div>
-                <a href="{% url 'home' %}" class="text-2xl font-bold text-purple-600 dark:text-purple-400">Edithunt</a>
+            <!-- Left Side: Brand and Bounties Link -->
+            <div class="flex items-center space-x-8">
+                <a href="{% url 'home' %}"
+                   class="text-2xl font-bold text-purple-600 dark:text-purple-400">Edithunt</a>
+                <div class="hidden md:flex">
+                    {% if user.is_authenticated %}
+                        {% if user.role == 'creator' %}
+                            <a href="{% url 'creator_dashboard' %}" class="nav-link">Bounties</a>
+                        {% elif user.role == 'editor' %}
+                            <a href="{% url 'bounty_board' %}" class="nav-link">Bounties</a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'login' %}" class="nav-link">Bounties</a>
+                    {% endif %}
+                </div>
             </div>
-            <!-- Desktop navigation links (hidden on mobile) -->
-            <div class="hidden md:flex items-center space-x-4">
-                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400">Bounties</a>
-                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400">Profile</a>
-            </div>
-            <!-- Desktop authentication and theme toggle controls (hidden on mobile) -->
+            <!-- Right Side: Theme, Profile Dropdown / Login -->
             <div class="hidden md:flex items-center space-x-4">
                 <!-- Theme toggle switch -->
                 <div class="flex items-center">
-                    <label for="theme-toggle" class="relative inline-flex items-center cursor-pointer">
+                    <label for="theme-toggle"
+                           class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" value="" id="theme-toggle" class="sr-only peer">
-                        <!-- Toggle track and knob with sun/moon icons -->
                         <div class="toggle-track">
                             <div class="toggle-knob">
                                 <div class="toggle-sun">{% include 'partials/icons/sun.html' %}</div>
@@ -26,35 +33,70 @@
                         </div>
                     </label>
                 </div>
-                <!-- Conditional rendering for Login/Logout buttons based on user authentication status -->
                 {% if user.is_authenticated %}
-                    <a href="{% url 'logout' %}" class="btn-primary">Logout</a>
+                    <!-- Profile Dropdown -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open"
+                                class="flex items-center text-gray-600 dark:text-gray-300 focus:outline-none">
+                            {% include 'partials/icons/user.html' %}
+                        </button>
+                        <div x-show="open"
+                             @click.away="open = false"
+                             x-transition
+                             class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg py-1 z-50">
+                            <a href="#" class="dropdown-item">View Profile</a>
+                            <a href="{% url 'logout' %}"
+                               class="flex items-center w-full text-left dropdown-item">
+                                {% include 'partials/icons/door.html' %}
+                                <span class="ml-2">Logout</span>
+                            </a>
+                        </div>
+                    </div>
                 {% else %}
                     <a href="{% url 'login' %}" class="btn-primary">Login</a>
                 {% endif %}
             </div>
-            <!-- Mobile menu button (visible only on mobile) -->
+            <!-- Mobile menu button -->
             <div class="md:hidden flex items-center">
-                <button class="mobile-menu-button">
-                    <svg class="w-6 h-6 text-gray-600 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="mobile-menu-button">
+                    <svg class="w-6 h-6 text-gray-600 dark:text-gray-300"
+                         xmlns="http://www.w3.org/2000/svg"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                     </svg>
                 </button>
             </div>
         </div>
     </div>
-    <!-- Mobile menu content (hidden by default, toggled by JavaScript) -->
-    <div class="mobile-menu hidden md:hidden">
-        <div class="px-4 py-2">
-            <a href="#" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400">Bounties</a>
-            <a href="#" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400">Profile</a>
-        </div>
-        <div class="px-4 py-2">
-            <!-- Conditional rendering for Login/Logout buttons in mobile menu -->
+    <!-- Mobile menu content -->
+    <div class="mobile-menu md:hidden" :class="{'hidden': !mobileMenuOpen}">
+        <div class="px-4 pt-2 pb-3 space-y-1">
+            <!-- Bounties link for mobile -->
             {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}" class="block w-full text-center btn-primary">Logout</a>
+                {% if user.role == 'creator' %}
+                    <a href="{% url 'creator_dashboard' %}" class="block py-2 nav-link">Bounties</a>
+                {% elif user.role == 'editor' %}
+                    <a href="{% url 'bounty_board' %}" class="block py-2 nav-link">Bounties</a>
+                {% endif %}
             {% else %}
-                <a href="{% url 'login' %}" class="block w-full text-center btn-primary">Login</a>
+                <a href="{% url 'login' %}" class="block py-2 nav-link">Bounties</a>
+            {% endif %}
+            <!-- Profile/Auth links for mobile -->
+            {% if user.is_authenticated %}
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+                    <a href="#" class="block py-2 nav-link">View Profile</a>
+                    <a href="{% url 'logout' %}"
+                       class="flex items-center w-full text-left py-2 nav-link">
+                        {% include 'partials/icons/door.html' %}
+                        <span class="ml-2">Logout</span>
+                    </a>
+                </div>
+            {% else %}
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+                    <a href="{% url 'login' %}" class="block w-full text-center btn-primary">Login</a>
+                </div>
             {% endif %}
         </div>
     </div>

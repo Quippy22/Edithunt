@@ -1,0 +1,122 @@
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Bounty Board</h1>
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Column: Filters -->
+            <aside class="lg:col-span-1">
+                <div class="form-container">
+                    <h2 class="form-heading">Filter & Sort</h2>
+                    <form method="get" id="filter-form" class="space-y-6">
+                        <div>
+                            <label for="{{ filter.form.budget_min.id_for_label }}" class="form-label">{{ filter.form.budget_min.label }}</label>
+                            {{ filter.form.budget_min }}
+                        </div>
+                        <div>
+                            <label for="{{ filter.form.budget_max.id_for_label }}" class="form-label">{{ filter.form.budget_max.label }}</label>
+                            {{ filter.form.budget_max }}
+                        </div>
+                        <div>
+                            <label for="{{ filter.form.deadline_start.id_for_label }}"
+                                   class="form-label">{{ filter.form.deadline_start.label }}</label>
+                            {{ filter.form.deadline_start }}
+                        </div>
+                        <div>
+                            <label for="{{ filter.form.deadline_end.id_for_label }}" class="form-label">
+                                {{ filter.form.deadline_end.label }}
+                            </label>
+                            {{ filter.form.deadline_end }}
+                        </div>
+                        <!-- Sort By Dropdown -->
+                        <div>
+                            <label for="sort" class="form-label">Sort By</label>
+                            <select name="sort" id="sort" class="bounty-filter-select">
+                                <option value="deadline"
+                                        {% if request.GET.sort == 'deadline' %}selected{% endif %}>
+                                    Deadline (Asc)
+                                </option>
+                                <option value="deadline_desc"
+                                        {% if request.GET.sort == 'deadline_desc' %}selected{% endif %}>
+                                    Deadline (Desc)
+                                </option>
+                                <option value="budget_asc"
+                                        {% if request.GET.sort == 'budget_asc' %}selected{% endif %}>
+                                    Budget (Asc)
+                                </option>
+                                <option value="budget_desc"
+                                        {% if request.GET.sort == 'budget_desc' %}selected{% endif %}>
+                                    Budget (Desc)
+                                </option>
+                            </select>
+                        </div>
+                        <!-- Items Per Page -->
+                        <div>
+                            <label for="paginate_by" class="form-label">Show Per Page</label>
+                            <select name="paginate_by" id="paginate_by" class="bounty-filter-select">
+                                <option value="5" {% if request.GET.paginate_by == '5' %}selected{% endif %}>5</option>
+                                <option value="10"
+                                        {% if request.GET.paginate_by == '10' %}selected{% endif %}>10</option>
+                                <option value="20"
+                                        {% if request.GET.paginate_by == '20' %}selected{% endif %}>20</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full flex justify-center btn-primary">Apply Filters</button>
+                        </div>
+                    </form>
+                </div>
+            </aside>
+            <!-- Right Column: Bounties -->
+            <main class="lg:col-span-3">
+                {% if bounties %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {% for bounty in bounties %}
+                            <details class="bounty-card">
+                                <summary class="bounty-card-summary">
+                                    <div class="flex justify-between items-center">
+                                        <h2 class="bounty-card-title">{{ bounty.title }}</h2>
+                                        <span class="bounty-card-budget">{{ bounty.budget_min }}
+                                            {% if bounty.budget_max %}- {{ bounty.budget_max }}{% endif %}
+                                        EUR</span>
+                                    </div>
+                                    <p class="text-gray-700 dark:text-gray-300 mt-2 line-clamp-2">{{ bounty.description }}</p>
+                                    <div class="flex justify-between items-center bounty-card-meta mt-4">
+                                        <span>Creator: {{ bounty.creator.username }}</span>
+                                        <span>Deadline: {{ bounty.deadline|date:"M d, Y H:i" }}</span>
+                                    </div>
+                                </summary>
+                                <div class="p-6 border-t border-gray-200 dark:border-gray-700">
+                                    <p class="text-gray-700 dark:text-gray-300 mb-4">{{ bounty.description }}</p>
+                                    <a href="#" class="btn-primary">View Submissions</a>
+                                </div>
+                            </details>
+                        {% endfor %}
+                    </div>
+                    <!-- Pagination Controls -->
+                    {% if is_paginated %}
+                        <div class="flex justify-center mt-8 space-x-2">
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}&{{ query_params }}"
+                                   class="pagination-button">Previous</a>
+                            {% endif %}
+                            {% for i in paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                    <span class="pagination-button-active">{{ i }}</span>
+                                {% else %}
+                                    <a href="?page={{ i }}&{{ query_params }}" class="pagination-button">{{ i }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}&{{ query_params }}"
+                                   class="pagination-button">Next</a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <p class="text-gray-700 dark:text-gray-300">No bounties match your criteria. Try adjusting your filters!</p>
+                {% endif %}
+            </main>
+        </div>
+    </div>
+{% endblock %}

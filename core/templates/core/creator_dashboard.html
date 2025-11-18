@@ -1,40 +1,39 @@
 {% extends 'theme/base.html' %}
-
 {% block content %}
-<!-- Main container for the Creator Dashboard -->
-<div class="container mx-auto px-4 py-8">
-    <!-- Page heading -->
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Your Bounties</h1>
-
-    {% if bounties %}
-        <!-- Grid layout for displaying bounty cards -->
-        <div class="space-y-4">
-            {% for bounty in bounties %}
-                <!-- Individual bounty card, linking to the submissions page -->
-                <a href="{% url 'view_submissions' bounty.id %}" class="block bounty-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
-                    <div class="p-6 flex justify-between items-center">
-                        <!-- Bounty title -->
-                        <span class="font-bold text-lg text-purple-600 dark:text-purple-400">{{ bounty.title }}</span>
-                        <!-- Budget and deadline summary -->
-                        <div class="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
-                            <span>
-                                {% if bounty.budget_max %}
-                                    {{ bounty.budget_min }} - {{ bounty.budget_max }} EUR
-                                {% else %}
-                                    {{ bounty.budget_min }} EUR
-                                {% endif %}
-                            </span>
-                            <span>{{ bounty.deadline|date:"M d, Y" }}</span>
+    <!-- Main container for the Creator Dashboard -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Page heading -->
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Your Bounties</h1>
+        {% if bounties %}
+            <!-- Grid layout for displaying bounty cards -->
+            <div class="space-y-4">
+                {% for bounty in bounties %}
+                    <!-- Individual bounty card, linking to the submissions page -->
+                    <a href="{% url 'view_submissions' bounty.id %}"
+                       class="block bounty-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                        <div class="p-6 flex justify-between items-center">
+                            <!-- Bounty title -->
+                            <span class="font-bold text-lg text-purple-600 dark:text-purple-400">{{ bounty.title }}</span>
+                            <!-- Budget and deadline summary -->
+                            <div class="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
+                                <span>
+                                    {% if bounty.budget_max %}
+                                        {{ bounty.budget_min }} - {{ bounty.budget_max }} EUR
+                                    {% else %}
+                                        {{ bounty.budget_min }} EUR
+                                    {% endif %}
+                                </span>
+                                <span>{{ bounty.deadline|date:"M d, Y" }}</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
-    {% else %}
-        <!-- Message displayed if no bounties have been posted -->
-        <p class="text-gray-700 dark:text-gray-300">You haven't posted any bounties yet.</p>
-        <!-- Link to post a new bounty -->
-        <a href="{% url 'post_bounty' %}" class="btn-primary mt-4 inline-block">Post a New Bounty</a>
-    {% endif %}
-</div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Message displayed if no bounties have been posted -->
+            <p class="text-gray-700 dark:text-gray-300">You haven't posted any bounties yet.</p>
+            <!-- Link to post a new bounty -->
+            <a href="{% url 'post_bounty' %}" class="btn-primary mt-4 inline-block">Post a New Bounty</a>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -3,11 +3,13 @@ from re import sub
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView, View
 
+from .filters import BountyFilter
 from .forms import BountyForm, CustomUserCreationForm
 from .models import Bounty, Submission
 
@@ -73,3 +75,48 @@ class ViewSubmissionsView(View):
             "submissions": submissions,
         }
         return render(request, "core/view_sumbissions.html", context)
+
+
+@method_decorator(login_required, name="dispatch")
+class BountyBoardView(ListView):
+    model = Bounty
+    template_name = "core/bounty_board.html"
+    context_object_name = "bounties"
+
+    def get_paginate_by(self, queryset):
+        # Get the 'paginate_by' value from the request's GET parameters, default to 10
+        return self.request.GET.get('paginate_by', 10)
+
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('-created_at') # Start with a default order
+        
+        # Apply filters from django-filter
+        self.filter = BountyFilter(self.request.GET, queryset=queryset)
+        
+        # Apply sorting based on user selection
+        sort_by = self.request.GET.get('sort')
+        if sort_by == 'budget_asc':
+            return self.filter.qs.order_by('budget_min')
+        elif sort_by == 'budget_desc':
+            return self.filter.qs.order_by('-budget_min')
+        elif sort_by == 'deadline_asc':
+            return self.filter.qs.order_by('deadline')
+        elif sort_by == 'deadline_desc':
+            return self.filter.qs.order_by('-deadline')
+        
+        # Return the filtered queryset
+        return self.filter.qs
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add the filter to the context
+        context['filter'] = self.filter
+        
+        # Preserve query parameters for pagination links
+        query_params = self.request.GET.copy()
+        if 'page' in query_params:
+            del query_params['page']
+        context['query_params'] = query_params.urlencode()
+        
+        return context

@@ -32,13 +32,18 @@ class DateTimeSelectWidget(widgets.MultiWidget):
     template_name = 'core/widgets/datetime_select.html'
 
     def __init__(self, attrs=None):
+        # Define common attrs for the select widgets
+        select_attrs = {'class': 'form-input'}
+        if attrs:
+            select_attrs.update(attrs)
+            
         month_choices = [(i, calendar.month_name[i]) for i in range(1, 13)]
         _widgets = (
-            widgets.Select(attrs=attrs, choices=[(i, i) for i in range(1, 32)]), # Day
-            widgets.Select(attrs=attrs, choices=month_choices), # Month
-            widgets.Select(attrs=attrs, choices=[(i, i) for i in range(date.today().year, date.today().year + 11)]), # Year
-            widgets.Select(attrs=attrs, choices=[(i, f"{i:02d}") for i in range(24)]),  # Hour
-            widgets.Select(attrs=attrs, choices=[(i, f"{i:02d}") for i in range(0, 60, 5)]),  # Minute
+            widgets.Select(attrs=select_attrs, choices=[(i, i) for i in range(1, 32)]), # Day
+            widgets.Select(attrs=select_attrs, choices=month_choices), # Month
+            widgets.Select(attrs=select_attrs, choices=[(i, i) for i in range(date.today().year, date.today().year + 11)]), # Year
+            widgets.Select(attrs=select_attrs, choices=[(i, f"{i:02d}") for i in range(24)]),  # Hour
+            widgets.Select(attrs=select_attrs, choices=[(i, f"{i:02d}") for i in range(0, 60, 5)]),  # Minute
         )
         super().__init__(_widgets, attrs)
 
@@ -68,18 +73,15 @@ class DateTimeMultiValueField(forms.MultiValueField):
             forms.IntegerField(), # Hour
             forms.IntegerField(), # Minute
         )
-        super().__init__(fields=fields, require_all_fields=True, *args, **kwargs)
+        super().__init__(fields=fields, require_all_fields=False, *args, **kwargs)
 
     def compress(self, data_list):
         """
         Takes the list of cleaned values from the sub-fields and "compresses"
         them into a single datetime object.
         """
-        if data_list:
+        if data_list and all(data_list):
             try:
-                # The order of data in data_list corresponds to the order of
-                # fields defined in __init__. We reorder them to create the
-                # datetime object.
                 return datetime(
                     year=data_list[2],
                     month=data_list[1],
@@ -90,6 +92,13 @@ class DateTimeMultiValueField(forms.MultiValueField):
             except (ValueError, TypeError):
                 raise forms.ValidationError("Invalid date or time.", code='invalid')
         return None
+
+
+class BountyFilterForm(forms.Form):
+    budget_min = forms.DecimalField(required=False)
+    budget_max = forms.DecimalField(required=False)
+    deadline_start = DateTimeMultiValueField(required=False, label='Deadline From')
+    deadline_end = DateTimeMultiValueField(required=False, label='Deadline To')
 
 
 class BountyForm(forms.ModelForm):

@@ -47,6 +47,6 @@ As the sole architect (and occasional bug-whisperer) of this digital endeavor, I
 
 Based on a rigorous analysis of `git commit` timestamps, the official time spent in the code mines is:
 
-**7 hour, 2 minutes**
+**8 hour, 46 minutes**
 
 ...give or take a few existential crises and a dozen "why isn't this working" Google searches.
