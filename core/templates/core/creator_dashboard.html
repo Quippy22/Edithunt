@@ -10,10 +10,9 @@
         <!-- Grid layout for displaying bounty cards -->
         <div class="space-y-4">
             {% for bounty in bounties %}
-                <!-- Individual bounty card, implemented as an expandable <details> element -->
-                <details class="bounty-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-                    <!-- Summary section of the expandable card, always visible -->
-                    <summary class="bounty-summary p-6 flex justify-between items-center cursor-pointer">
+                <!-- Individual bounty card, linking to the submissions page -->
+                <a href="{% url 'view_submissions' bounty.id %}" class="block bounty-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                    <div class="p-6 flex justify-between items-center">
                         <!-- Bounty title -->
                         <span class="font-bold text-lg text-purple-600 dark:text-purple-400">{{ bounty.title }}</span>
                         <!-- Budget and deadline summary -->
@@ -27,36 +26,8 @@
                             </span>
                             <span>{{ bounty.deadline|date:"M d, Y" }}</span>
                         </div>
-                    </summary>
-                    <!-- Detailed content of the bounty, visible when the card is expanded -->
-                    <div class="bounty-details p-6 border-t border-gray-200 dark:border-gray-700">
-                        <!-- Two-column layout for details and description -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <!-- Left column: Bounty details (Budget, Deadline) -->
-                            <div class="md:col-span-1">
-                                <h3 class="text-lg font-bold mb-2 dark:text-white">Details</h3>
-                                <p class="text-gray-700 dark:text-gray-300"><strong>Budget:</strong> 
-                                    {% if bounty.budget_max %}
-                                        {{ bounty.budget_min }} - {{ bounty.budget_max }} EUR
-                                    {% else %}
-                                        {{ bounty.budget_min }} EUR
-                                    {% endif %}
-                                </p>
-                                <p class="text-gray-700 dark:text-gray-300"><strong>Deadline:</strong> {{ bounty.deadline|date:"M d, Y H:i" }}</p>
-                            </div>
-                            <!-- Right column: Full bounty description -->
-                            <div class="md:col-span-2">
-                                <h3 class="text-lg font-bold mb-2 dark:text-white">Description</h3>
-                                <p class="text-gray-700 dark:text-gray-300">{{ bounty.description }}</p>
-                            </div>
-                        </div>
-                        <!-- Section for displaying submissions (placeholder for now) -->
-                        <div class="mt-6">
-                            <h3 class="text-lg font-bold mb-2 dark:text-white">Submissions</h3>
-                            <p class="text-gray-700 dark:text-gray-300">Submissions will be listed here.</p>
-                        </div>
                     </div>
-                </details>
+                </a>
             {% endfor %}
         </div>
     {% else %}

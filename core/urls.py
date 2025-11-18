@@ -6,6 +6,7 @@ from .views import (
     CustomLoginView,
     PostBountyView,
     SignUpView,
+    ViewSubmissionsView,
     logout_view,
 )
 
@@ -15,5 +16,10 @@ urlpatterns = [
     path("logout/", logout_view, name="logout"),
     path("bounty/post/", PostBountyView.as_view(), name="post_bounty"),
     path("dashboard/", CreatorDashboardView.as_view(), name="creator_dashboard"),
+    path(
+        "bounty/<int:bounty_id>/submissions/",
+        ViewSubmissionsView.as_view(),
+        name="view_submissions",
+    ),
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
 ]

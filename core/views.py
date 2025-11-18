@@ -1,13 +1,16 @@
+from re import sub
+
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, View
 
 from .forms import BountyForm, CustomUserCreationForm
-from .models import Bounty
+from .models import Bounty, Submission
+
 
 # Registration view
 class SignUpView(CreateView):
@@ -48,6 +51,7 @@ class PostBountyView(CreateView):
         form.instance.creator = self.request.user
         return super().form_valid(form)
 
+
 # Creator dahsboard view
 @method_decorator(login_required, name="dispatch")
 class CreatorDashboardView(ListView):
@@ -57,3 +61,15 @@ class CreatorDashboardView(ListView):
 
     def get_queryset(self):
         return Bounty.objects.filter(creator=self.request.user)
+
+
+@method_decorator(login_required, name="dispatch")
+class ViewSubmissionsView(View):
+    def get(self, request, bounty_id, *args, **kwargs):
+        bounty = get_object_or_404(Bounty, id=bounty_id, creator=request.user)
+        submissions = Submission.objects.filter(bounty=bounty)
+        context = {
+            "bounty": bounty,
+            "submissions": submissions,
+        }
+        return render(request, "core/view_sumbissions.html", context)
