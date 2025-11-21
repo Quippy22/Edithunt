@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+{% load bounty_helpers %}
+{% block content %}
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6">
+            <!-- Bounty Header -->
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ bounty.title }}</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        Posted by: {{ bounty.creator.username }} on {{ bounty.created_at|date:"M d, Y" }}
+                    </p>
+                </div>
+                <div class="text-right">
+                    <span class="bounty-card-budget text-2xl">{{ bounty.budget_min }}
+                        {% if bounty.budget_max %}-{{ bounty.budget_max }}{% endif %}
+                    EUR</span>
+                    {% remaining_time_display bounty.deadline as time_left %}
+                    <p class="font-bold {{ time_left.class }}">{{ time_left.text }}</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Deadline: {{ bounty.deadline|date:"M d, Y H:i" }}</p>
+                </div>
+            </div>
+            <!-- Bounty Description -->
+            <div class="mb-6">
+                <p class="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{{ bounty.description }}</p>
+            </div>
+                    <!-- Footage Link -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Footage</h2>
+                        <a href="{{ bounty.footage_link }}" target="_blank" rel="noopener noreferrer" class="btn-secondary">Download Footage</a>
+                    </div>
+            <!-- Submission Section -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Submit Your Work</h2>
+                <form method="post" class="space-y-4">
+                    {% csrf_token %}
+                    <div>
+                        <label for="{{ form.file_link.id_for_label }}" class="form-label">File Link:</label>
+                        {{ form.file_link }}
+                    </div>
+                    <button type="submit" class="btn-primary">Submit Work</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
