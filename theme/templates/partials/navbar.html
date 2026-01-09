@@ -1,3 +1,4 @@
+{% load i18n %}
 <nav class="bg-white dark:bg-gray-800 shadow-lg z-50 relative"
      x-data="{ mobileMenuOpen: false }">
     <div class="container mx-auto px-4">
@@ -9,12 +10,12 @@
                 <div class="hidden md:flex">
                     {% if user.is_authenticated %}
                         {% if user.role == 'creator' %}
-                            <a href="{% url 'creator_dashboard' %}" class="nav-link">Bounties</a>
+                            <a href="{% url 'creator_dashboard' %}" class="nav-link">{% trans "Bounties" %}</a>
                         {% elif user.role == 'editor' %}
-                            <a href="{% url 'bounty_board' %}" class="nav-link">Bounties</a>
+                            <a href="{% url 'bounty_board' %}" class="nav-link">{% trans "Bounties" %}</a>
                         {% endif %}
                     {% else %}
-                        <a href="{% url 'login' %}" class="nav-link">Bounties</a>
+                        <a href="{% url 'login' %}" class="nav-link">{% trans "Bounties" %}</a>
                     {% endif %}
                 </div>
             </div>
@@ -48,12 +49,12 @@
                             <a href="{% url 'logout' %}"
                                class="flex items-center w-full text-left dropdown-item">
                                 {% include 'partials/icons/door.html' %}
-                                <span class="ml-2">Logout</span>
+                                <span class="ml-2">{% trans "Logout" %}</span>
                             </a>
                         </div>
                     </div>
                 {% else %}
-                    <a href="{% url 'login' %}" class="btn-primary">Login</a>
+                    <a href="{% url 'login' %}" class="btn-primary">{% trans "Login" %}</a>
                 {% endif %}
             </div>
             <!-- Mobile menu button -->
@@ -76,12 +77,12 @@
             <!-- Bounties link for mobile -->
             {% if user.is_authenticated %}
                 {% if user.role == 'creator' %}
-                    <a href="{% url 'creator_dashboard' %}" class="block py-2 nav-link">Bounties</a>
+                    <a href="{% url 'creator_dashboard' %}" class="block py-2 nav-link">{% trans "Bounties" %}</a>
                 {% elif user.role == 'editor' %}
-                    <a href="{% url 'bounty_board' %}" class="block py-2 nav-link">Bounties</a>
+                    <a href="{% url 'bounty_board' %}" class="block py-2 nav-link">{% trans "Bounties" %}</a>
                 {% endif %}
             {% else %}
-                <a href="{% url 'login' %}" class="block py-2 nav-link">Bounties</a>
+                <a href="{% url 'login' %}" class="block py-2 nav-link">{% trans "Bounties" %}</a>
             {% endif %}
             <!-- Profile/Auth links for mobile -->
             {% if user.is_authenticated %}
@@ -90,12 +91,12 @@
                     <a href="{% url 'logout' %}"
                        class="flex items-center w-full text-left py-2 nav-link">
                         {% include 'partials/icons/door.html' %}
-                        <span class="ml-2">Logout</span>
+                        <span class="ml-2">{% trans "Logout" %}</span>
                     </a>
                 </div>
             {% else %}
                 <div class="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                    <a href="{% url 'login' %}" class="block w-full text-center btn-primary">Login</a>
+                    <a href="{% url 'login' %}" class="block w-full text-center btn-primary">{% trans "Login" %}</a>
                 </div>
             {% endif %}
         </div>

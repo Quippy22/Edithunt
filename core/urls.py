@@ -24,6 +24,7 @@ urlpatterns = [
         name="view_submissions",
     ),
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
+    path("tutorial/", TemplateView.as_view(template_name="core/tutorial.html"), name="tutorial"),
     path("bounty-board/", BountyBoardView.as_view(), name="bounty_board"),
     path("bounty/<int:pk>/", BountyDetailView.as_view(), name="bounty_detail"),
 ]

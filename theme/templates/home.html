@@ -1,47 +1,109 @@
 {% extends 'theme/base.html' %}
+{% load i18n %}
 {% block content %}
-    <!-- Main content wrapper for the home page, ensuring text color adapts to theme -->
+    <!-- Main content wrapper for the home page -->
     <div class="text-gray-900 dark:text-gray-200">
-        <!-- Hero Section: Prominent introductory section with a call to action -->
+        <!-- Hero Section -->
         <div class="text-center py-20 px-4">
             <h1 class="text-5xl md:text-6xl font-extrabold text-purple-600 dark:text-purple-400">Edithunt</h1>
             <p class="mt-4 text-lg md:text-xl text-gray-600 dark:text-gray-300">
                 The ultimate marketplace for video creators and editors.
             </p>
             <div class="mt-8 flex justify-center gap-4">
-                <a href="{% url 'signup' %}" class="btn-primary py-3 px-6 text-lg">Get Started</a>
-                <a href="#" class="btn-secondary py-3 px-6 text-lg">Learn More</a>
+                <a href="{% url 'signup' %}" class="btn-primary py-3 px-6 text-lg">{% trans "Get Started" %}</a>
+                <a href="{% url 'tutorial' %}" class="btn-secondary py-3 px-6 text-lg">{% trans "Learn More" %}</a>
             </div>
         </div>
+
+        <!-- Mission & Benefits Section -->
+        <div class="py-24 bg-gray-50 dark:bg-gray-900 overflow-hidden relative">
+            <div class="container mx-auto px-6 relative z-10">
+                
+                <!-- Creators -->
+                <div class="flex flex-col md:flex-row items-center gap-12 mb-24">
+                    <div class="w-full md:w-1/2">
+                        <div class="bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-purple-900 dark:to-indigo-900 rounded-3xl p-8 transform -rotate-2 hover:rotate-0 transition duration-500 shadow-2xl">
+                            <div class="aspect-video bg-gradient-to-r from-purple-600 to-blue-500 rounded-xl flex items-center justify-center text-white text-6xl shadow-inner">
+                                {% include 'partials/icons/clock.html' %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 space-y-6">
+                        <h2 class="text-4xl font-extrabold text-gray-900 dark:text-white leading-tight">
+                            {% trans "Scale Your Content" %} <br>
+                            <span class="text-purple-600 dark:text-purple-400">{% trans "Outsource Effortlessly" %}</span>
+                        </h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                            {% trans "Stop spending hours in the timeline. Whether you need a quick social cut or a full-length documentary, post a bounty and let the talent come to you. Focus on filming and storytelling while we handle the post-production logistics." %}
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <span class="text-green-500 mr-2">✓</span> {% trans "Access a global pool of talent." %}
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <span class="text-green-500 mr-2">✓</span> {% trans "Set your own budget and deadlines." %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Editors -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                    <div class="w-full md:w-1/2">
+                        <div class="bg-gradient-to-bl from-teal-100 to-emerald-100 dark:from-teal-900 dark:to-emerald-900 rounded-3xl p-8 transform rotate-2 hover:rotate-0 transition duration-500 shadow-2xl">
+                            <div class="aspect-video bg-gradient-to-l from-teal-500 to-emerald-600 rounded-xl flex items-center justify-center text-white text-6xl shadow-inner">
+                                {% include 'partials/icons/clipboard-list.html' %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 space-y-6">
+                        <h2 class="text-4xl font-extrabold text-gray-900 dark:text-white leading-tight">
+                            {% trans "Build Your Legacy." %} <br>
+                            <span class="text-teal-600 dark:text-teal-400">{% trans "No Work is Ever Wasted." %}</span>
+                        </h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                            {% trans "We believe every edit tells a story. Even if your submission doesn't win the bounty, it automatically becomes a permanent part of your on-site portfolio." %}
+                        </p>
+                        <div class="p-4 border-l-4 border-teal-500 bg-teal-50 dark:bg-teal-900/20 rounded-r-lg">
+                            <p class="text-teal-800 dark:text-teal-200 font-medium">
+                                {% trans "Showcase your skills, collect ratings from real creators, and let your profile become your resume. Clients can contact you directly based on your body of work." %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <!-- Features Section: Highlights key functionalities of the platform -->
         <div class="py-16 bg-white dark:bg-gray-800">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-12">How It Works</h2>
+                <h2 class="text-3xl font-bold text-center mb-12">{% trans "How It Works" %}</h2>
                 <div class="flex flex-wrap -mx-4">
                     <!-- Feature 1: Post a Bounty -->
                     <div class="w-full md:w-1/3 px-4 mb-8">
-                        <div class="rounded-lg shadow-lg p-8 text-center">
+                        <div class="rounded-lg shadow-lg p-8 text-center transition-transform duration-300 hover:scale-105 cursor-default">
                             <div class="text-purple-500 mb-4">{% include 'partials/icons/flag.html' %}</div>
-                            <h3 class="text-2xl font-bold mb-2">Post a Bounty</h3>
+                            <h3 class="text-2xl font-bold mb-2">{% trans "Post a Bounty" %}</h3>
                             <p class="text-gray-600 dark:text-gray-400">
-                                Creators post video editing jobs with a description, budget, and deadline.
+                                {% trans "Creators post video editing jobs with a description, budget, and deadline." %}
                             </p>
                         </div>
                     </div>
                     <!-- Feature 2: Editors Compete -->
                     <div class="w-full md:w-1/3 px-4 mb-8">
-                        <div class="rounded-lg shadow-lg p-8 text-center">
+                        <div class="rounded-lg shadow-lg p-8 text-center transition-transform duration-300 hover:scale-105 cursor-default">
                             <div class="text-purple-500 mb-4">{% include 'partials/icons/map-pin.html' %}</div>
-                            <h3 class="text-2xl font-bold mb-2">Editors Compete</h3>
-                            <p class="text-gray-600 dark:text-gray-400">Skilled editors submit their best work to win the bounty.</p>
+                            <h3 class="text-2xl font-bold mb-2">{% trans "Editors Compete" %}</h3>
+                            <p class="text-gray-600 dark:text-gray-400">{% trans "Skilled editors submit their best work to win the bounty." %}</p>
                         </div>
                     </div>
                     <!-- Feature 3: Choose a Winner -->
                     <div class="w-full md:w-1/3 px-4 mb-8">
-                        <div class="rounded-lg shadow-lg p-8 text-center">
+                        <div class="rounded-lg shadow-lg p-8 text-center transition-transform duration-300 hover:scale-105 cursor-default">
                             <div class="text-purple-500 mb-4">{% include 'partials/icons/trophy.html' %}</div>
-                            <h3 class="text-2xl font-bold mb-2">Choose a Winner</h3>
-                            <p class="text-gray-600 dark:text-gray-400">Creators review submissions and award the bounty to the best editor.</p>
+                            <h3 class="text-2xl font-bold mb-2">{% trans "Choose a Winner" %}</h3>
+                            <p class="text-gray-600 dark:text-gray-400">{% trans "Creators review submissions and award the bounty to the best editor." %}</p>
                         </div>
                     </div>
                 </div>

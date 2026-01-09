@@ -1,0 +1,91 @@
+{% extends 'theme/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="bg-white dark:bg-gray-900 min-h-screen">
+    <div class="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white sm:text-5xl">
+                {% trans "Welcome to the Hunt" %}
+            </h1>
+            <p class="mt-4 text-xl text-gray-600 dark:text-gray-400">
+                {% trans "Learn how Edithunt revolutionizes the connection between vision and execution." %}
+            </p>
+        </div>
+
+        <div class="space-y-16">
+            <!-- For Creators -->
+            <section>
+                <div class="flex items-center mb-6">
+                    <div class="bg-purple-100 dark:bg-purple-900 p-3 rounded-lg mr-4 text-purple-600 dark:text-purple-400 text-2xl">
+                        {% include 'partials/icons/user.html' %}
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">{% trans "For Creators" %}</h2>
+                </div>
+                <div class="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 space-y-4">
+                    <p>
+                        {% trans "Edithunt is designed for creators who value quality and speed. Instead of browsing hundreds of portfolios, you let the results speak for themselves." %}
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700">
+                            <h4 class="font-bold text-gray-900 dark:text-white mb-2">1. {% trans "Post a Bounty" %}</h4>
+                            <p class="text-sm">{% trans "Upload your raw footage to a cloud drive, share the link, and describe exactly what you need. Set your budget and a strict deadline." %}</p>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700">
+                            <h4 class="font-bold text-gray-900 dark:text-white mb-2">2. {% trans "The Race Begins" %}</h4>
+                            <p class="text-sm">{% trans "Editors see your bounty and start working immediately. You'll see submissions roll in before the deadline." %}</p>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700">
+                            <h4 class="font-bold text-gray-900 dark:text-white mb-2">3. {% trans "Choose the Best" %}</h4>
+                            <p class="text-sm">{% trans "Review the edited videos. Pick the one that fits your brand perfectly. The winner gets paid, and you get your high-quality video." %}</p>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700">
+                            <h4 class="font-bold text-gray-900 dark:text-white mb-2">4. {% trans "Build Relationships" %}</h4>
+                            <p class="text-sm">{% trans "Found an editor you love? You can see their past wins and contact them directly for future private projects." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- For Editors -->
+            <section>
+                <div class="flex items-center mb-6">
+                    <div class="bg-teal-100 dark:bg-teal-900 p-3 rounded-lg mr-4 text-teal-600 dark:text-teal-400 text-2xl">
+                        {% include 'partials/icons/trophy.html' %}
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">{% trans "For Editors" %}</h2>
+                </div>
+                <div class="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 space-y-4">
+                    <p>
+                        {% trans "New to the industry? Or a veteran looking for quick gigs? Edithunt provides a level playing field where your skills are your only resume." %}
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700">
+                            <h4 class="font-bold text-gray-900 dark:text-white mb-2">1. {% trans "Find Your Hunt" %}</h4>
+                            <p class="text-sm">{% trans "Browse the Bounty Board. Filter by budget or deadline. Download the footage and show off your unique editing style." %}</p>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700">
+                            <h4 class="font-bold text-gray-900 dark:text-white mb-2">2. {% trans "The Automatic Portfolio" %}</h4>
+                            <p class="text-sm">{% trans "Every submission you make is saved to your profile. Even if you don't win, you've built a portfolio of real-world work hosted on our platform." %}</p>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700">
+                            <h4 class="font-bold text-gray-900 dark:text-white mb-2">3. {% trans "Instant Payouts" %}</h4>
+                            <p class="text-sm">{% trans "When you win, the reward is credited to you. No more chasing clients for weeks—the bounty system ensures transparency." %}</p>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700">
+                            <h4 class="font-bold text-gray-900 dark:text-white mb-2">4. {% trans "Get Discovered" %}</h4>
+                            <p class="text-sm">{% trans "Your profile displays your win rate, ratings, and best work. High-ranking editors are frequently scouted by top creators for long-term work." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="mt-20 text-center">
+            <a href="{% url 'signup' %}" class="btn-primary py-4 px-10 text-xl shadow-xl hover:shadow-purple-500/20">
+                {% trans "Join the Hunt Today" %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
