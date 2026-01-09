@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.urls import reverse
 
-from .models import Bounty, CustomUser, Submission
+from .models import Bounty, CustomUser, Submission, Tag
 
 class CustomUserCreationForm(UserCreationForm):
     """
@@ -29,7 +29,8 @@ class CustomUserCreationForm(UserCreationForm):
             if field_name != 'terms_agreement':
                 field.widget.attrs["class"] = "form-input"
         
-        # We set the label here to avoid circular imports with reverse()
+        # We set the label here to avoid circular imports with reverse() during module loading.
+        # This ensures the URL configuration is fully loaded before we try to resolve URLs.
         self.fields['terms_agreement'].label = mark_safe(
             _('I have read and agree to the <a href="{url_terms}" target="_blank" class="text-purple-600 hover:underline">Terms & Conditions</a> and <a href="{url_privacy}" target="_blank" class="text-purple-600 hover:underline">Privacy Policy</a>.')
             .format(url_terms=reverse('terms'), url_privacy=reverse('privacy'))
@@ -38,7 +39,7 @@ class CustomUserCreationForm(UserCreationForm):
 
 class UserProfileForm(forms.ModelForm):
     """
-    A form for users to edit their profile information.
+    A form for users to edit their profile information (Bio, Picture).
     """
     class Meta:
         model = CustomUser
@@ -49,6 +50,7 @@ class UserProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Standardize styling for all fields
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-input'
 
@@ -93,6 +95,7 @@ class DateTimeSelectWidget(widgets.MultiWidget):
         """
         Takes a single Python datetime value and splits it into a list of
         values [day, month, year, hour, minute] for each of the sub-widgets.
+        Used when rendering the widget with initial data.
         """
         if isinstance(value, datetime):
             return [value.day, value.month, value.year, value.hour, value.minute]
@@ -141,31 +144,6 @@ class DateTimeMultiValueField(forms.MultiValueField):
         return None
 
 
-class BountyFilterForm(forms.Form):
-    """
-    A form used to provide the fields for the BountyFilter FilterSet.
-    This form is not intended to be saved to the database directly but rather
-    to collect the user's filtering criteria.
-    """
-
-    budget_min = forms.DecimalField(
-        required=False, widget=forms.NumberInput(attrs={"step": "0.01"})
-    )
-    budget_max = forms.DecimalField(
-        required=False, widget=forms.NumberInput(attrs={"step": "0.01"})
-    )
-    posted_within = forms.IntegerField(
-        required=False,
-        label="Posted within",
-        widget=forms.NumberInput(attrs={"placeholder": "e.g., 3"}),
-    )
-    posted_within_unit = forms.ChoiceField(
-        required=False,
-        choices=[("days", "Days"), ("hours", "Hours")],
-        label="Time unit",
-    )
-
-
 class BountyForm(forms.ModelForm):
     """
     A form for creating and updating Bounty objects.
@@ -174,6 +152,13 @@ class BountyForm(forms.ModelForm):
     # Override the 'deadline' field to use our custom widget and set a default
     # initial value of one day from now.
     deadline = DateTimeMultiValueField(initial=lambda: date.today() + timedelta(days=1))
+    
+    tags_input = forms.CharField(
+        required=False,
+        label="Tags",
+        help_text="Enter tags separated by commas (e.g. Gaming, Vlog, Tutorial)",
+        widget=forms.TextInput(attrs={"placeholder": "Gaming, Vlog, Tutorial"})
+    )
 
     class Meta:
         model = Bounty
@@ -193,6 +178,41 @@ class BountyForm(forms.ModelForm):
         for field_name, field in self.fields.items():
             if field_name not in ["deadline", "budget_min", "budget_max"]:
                 field.widget.attrs["class"] = "form-input"
+        
+        # Populate initial tags if editing
+        if self.instance.pk:
+            self.fields['tags_input'].initial = ", ".join(
+                [t.name for t in self.instance.tags.all()]
+            )
+
+    def save(self, commit=True):
+        bounty = super().save(commit=False)
+        if commit:
+            bounty.save()
+            self.save_m2m()
+            
+            tags_str = self.cleaned_data.get('tags_input', '')
+            if tags_str:
+                tag_names = [t.strip() for t in tags_str.split(',') if t.strip()]
+                # Using a set to remove duplicates if user types "Tag, Tag"
+                tag_names = list(set(tag_names))
+                
+                # We need to manage the M2M relationship manually
+                # First, we can clear existing ones (simple strategy)
+                bounty.tags.clear()
+                
+                for name in tag_names:
+                    # Get or create the tag (case-insensitive matching preferred but 
+                    # for simplicity using exact or simple iexact if DB supports it)
+                    # We'll use simple get_or_create.
+                    # Note: SQLite creates are case-sensitive by default usually? 
+                    # But keeping it simple:
+                    tag, created = Tag.objects.get_or_create(name=name)
+                    bounty.tags.add(tag)
+            else:
+                bounty.tags.clear()
+        
+        return bounty
 
 
 class SubmissionForm(forms.ModelForm):

@@ -6,28 +6,42 @@ from django.db.models import Q
 from django.db.models.functions import Coalesce
 from django.utils import timezone
 
-from .models import Bounty
+from .models import Bounty, Tag
 
 
 class BountyFilter(django_filters.FilterSet):
     """
     A custom filter set for the Bounty model to enable complex filtering on the bounty board.
+    Uses 'django-filter' to automatically generate form fields for querying the queryset.
     """
+    
+    # Text Search Filter
+    search = django_filters.CharFilter(
+        method="filter_by_search",
+        label="Search",
+        widget=forms.TextInput(attrs={"class": "form-input", "placeholder": "Search bounties..."}),
+    )
 
-    # NOTE: The budget filters use a no-op lambda for their method because the default
-    # 'gte' and 'lte' lookups are insufficient for range overlap. The actual filtering
-    # logic is deferred to the custom `filter_queryset` method below.
+    # Tag Filter
+    tags = django_filters.ModelMultipleChoiceFilter(
+        queryset=Tag.objects.all(),
+        label="Tags",
+        widget=forms.SelectMultiple(attrs={"class": "form-input h-32"}), # Simple multi-select box
+    )
+
+    # Budget Filtering Logic
     budget_min = django_filters.NumberFilter(
         label="Min Budget",
-        method=lambda qs, n, v: qs,  # Defer to filter_queryset
+        method=lambda qs, n, v: qs,
         widget=forms.NumberInput(attrs={"class": "form-input", "step": "0.01"}),
     )
     budget_max = django_filters.NumberFilter(
         label="Max Budget",
-        method=lambda qs, n, v: qs,  # Defer to filter_queryset
+        method=lambda qs, n, v: qs,
         widget=forms.NumberInput(attrs={"class": "form-input", "step": "0.01"}),
     )
 
+    # Posted Within Logic
     posted_within = django_filters.NumberFilter(
         method="filter_by_posted_within",
         label="Posted within",
@@ -35,75 +49,76 @@ class BountyFilter(django_filters.FilterSet):
             attrs={"class": "form-input", "placeholder": "e.g., 3"}
         ),
     )
-    # This filter's method is a no-op because this field is not for filtering directly.
-    # It only provides data ('days' or 'hours') for the `posted_within` filter's method.
-    # It is included here so that `django-filter` correctly renders it in the form.
+    
+    # Unit Selector for 'Posted Within'
     posted_within_unit = django_filters.ChoiceFilter(
         choices=[("days", "Days"), ("hours", "Hours")],
         method=lambda qs, n, v: qs,
         label="Time unit",
+        empty_label=None,
+        initial="days",
         widget=forms.Select(attrs={"class": "form-input"}),
     )
 
     class Meta:
         model = Bounty
-        fields = ["budget_min", "budget_max", "posted_within", "posted_within_unit"]
+        fields = ["search", "tags", "budget_min", "budget_max", "posted_within", "posted_within_unit"]
+
+    def filter_by_search(self, queryset, name, value):
+        """
+        Filters the queryset by title, description, or tag name.
+        """
+        if not value:
+            return queryset
+        return queryset.filter(
+            Q(title__icontains=value) | 
+            Q(description__icontains=value) |
+            Q(tags__name__icontains=value)
+        ).distinct()
 
     def filter_queryset(self, queryset):
         """
-        Overrides the default filter method to implement custom budget filtering logic.
+        Overrides the main filter loop to inject custom budget overlap logic.
         """
-        # This will call the methods for filters that have one, like 'posted_within',
-        # but not for the budget filters, which have a no-op lambda.
         queryset = super().filter_queryset(queryset)
 
-        # To handle bounties with a fixed price (where `budget_max` is null),
-        # we create an 'effective high price' by taking budget_max if it exists,
-        # or falling back to budget_min.
+        # Annotate 'high_price' to handle fixed-price bounties
         queryset = queryset.annotate(high_price=Coalesce("budget_max", "budget_min"))
 
         budget_min = self.form.cleaned_data.get("budget_min")
         budget_max = self.form.cleaned_data.get("budget_max")
 
         if budget_min is not None and budget_max is not None:
-            # Case: User provides a min and max budget.
-            # A bounty is a match if its budget range overlaps with the user's specified range.
-            # The overlap condition is: (BountyStart <= UserMax) AND (BountyEnd >= UserMin)
             queryset = queryset.filter(
                 budget_min__lte=budget_max, high_price__gte=budget_min
             )
         elif budget_min is not None:
-            # Case: User provides only a min budget.
-            # A bounty is a match if its effective high price is at least the user's min.
             queryset = queryset.filter(high_price__gte=budget_min)
         elif budget_max is not None:
-            # Case: User provides only a max budget.
-            # A bounty is a match if its starting price is no more than the user's max.
             queryset = queryset.filter(budget_min__lte=budget_max)
 
         return queryset
 
     def filter_by_posted_within(self, queryset, name, value):
         """
-        Filters bounties posted within a certain number of days or hours.
+        Custom method for the 'posted_within' filter.
         """
         if value is None:
             return queryset
 
         unit = self.request.GET.get("posted_within_unit")
 
-        # The `value` from a NumberFilter is a Decimal. `timedelta` requires an int or float.
         try:
             value = int(value)
         except (ValueError, TypeError):
-            return queryset  # Ignore if value is not a valid integer
+            return queryset
 
         if unit == "hours":
             delta = timedelta(hours=value)
         elif unit == "days":
             delta = timedelta(days=value)
         else:
-            # If a value is given but the unit is invalid/missing, don't filter.
             return queryset
 
-        return queryset.filter(created_at__gte=timezone.now() - delta)
+        cutoff_time = timezone.now() - delta
+        return queryset.filter(created_at__gte=cutoff_time)

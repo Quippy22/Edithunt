@@ -45,9 +45,6 @@ input[type="number"] {
   .post-bounty-container {
       @apply container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8;
   }
-  .form-container {
-      @apply lg:col-span-2 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg;
-  }
   .rules-container {
       @apply lg:col-span-1;
   }
@@ -124,7 +121,7 @@ input[type="number"] {
     @apply text-3xl font-bold text-center mb-6 text-gray-900 dark:text-white;
   }
   .auth-form {
-    @apply bg-white dark:bg-gray-800 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4;
+    @apply bg-white dark:bg-gray-800 shadow-lg rounded-lg px-6 pt-6 pb-6 mb-4;
   }
   .auth-form-footer {
     @apply text-center text-gray-500 dark:text-gray-400 text-sm mt-6;
@@ -138,7 +135,7 @@ input[type="number"] {
     @apply bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden cursor-pointer transition-transform hover:scale-[1.01];
   }
   .bounty-card-summary {
-    @apply p-6 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none transition-colors;
+    @apply p-4 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none transition-colors;
   }
   .bounty-card-title {
     @apply text-xl font-semibold text-gray-900 dark:text-white;
@@ -148,16 +145,21 @@ input[type="number"] {
   }
   
   /* Form Containers */
-  .form-container-generic {
-      @apply max-w-2xl mx-auto mt-10 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg;
+  .form-container {
+      @apply lg:col-span-2 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg;
   }
   .form-heading {
       @apply text-3xl font-bold text-gray-900 dark:text-white mb-6;
   }
+  
+  /* Tags */
+  .tag-badge {
+      @apply inline-block bg-gray-200 dark:bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 dark:text-gray-300 mr-2 mb-2;
+  }
 
   /* Additional Classes found in templates */
   .bounty-filter-card {
-    @apply bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 mb-8;
+    @apply bg-white dark:bg-gray-800 shadow-lg rounded-lg p-4 mb-6;
   }
   .bounty-filter-select {
       @apply shadow appearance-none border rounded w-full py-2 px-3 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-200 leading-tight focus:outline-none focus:border-purple-500 dark:focus:border-purple-400 mt-1 block w-full rounded-md shadow-sm transition-colors;

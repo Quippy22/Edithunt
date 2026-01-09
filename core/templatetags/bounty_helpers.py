@@ -41,8 +41,8 @@ def remaining_time_display(deadline):
         # 1 to 3 days: Bright Red
         css_class = 'text-red-600 dark:text-red-400'
     elif remaining < timedelta(days=7):
-        # 3 to 7 days: Orange
-        css_class = 'text-orange-500 dark:text-orange-400'
+        # 3 to 7 days: Yellow
+        css_class = 'text-yellow-600 dark:text-yellow-400'
     else:
         # More than 7 days: Green
         css_class = 'text-green-500 dark:text-green-400'

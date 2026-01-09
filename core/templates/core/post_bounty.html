@@ -36,7 +36,7 @@
                 {% csrf_token %}
                 <!-- Loop through and render generic form fields (title, description, footage_link) -->
                 {% for field in form %}
-                    {% if field.name != 'budget_min' and field.name != 'budget_max' and field.name != 'deadline' %}
+                    {% if field.name != 'budget_min' and field.name != 'budget_max' and field.name != 'deadline' and field.name != 'tags_input' %}
                         <div>
                             <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
                             {{ field }}
@@ -45,6 +45,15 @@
                         </div>
                     {% endif %}
                 {% endfor %}
+                
+                <!-- Tags Input -->
+                <div>
+                    <label for="{{ form.tags_input.id_for_label }}" class="form-label">{{ form.tags_input.label }}</label>
+                    {{ form.tags_input }}
+                    {% if form.tags_input.help_text %}<p class="mt-2 text-sm text-gray-500">{{ form.tags_input.help_text }}</p>{% endif %}
+                    {% for error in form.tags_input.errors %}<p class="mt-2 text-sm text-red-600">{{ error }}</p>{% endfor %}
+                </div>
+
                 <!-- Custom rendering for budget fields (min and max) -->
                 <div>
                     <label class="form-label">Budget</label>

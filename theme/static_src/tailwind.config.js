@@ -4,6 +4,7 @@ module.exports = {
   content: [
       // Absolute paths from project root (assuming build runs from theme/static_src)
       '../../core/templates/**/*.html',
+      '../../core/**/*.py',
       '../templates/**/*.html',
       '../../templates/**/*.html',
   ],

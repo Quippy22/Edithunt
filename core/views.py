@@ -1,5 +1,3 @@
-from re import sub
-
 from django.contrib.auth import login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
@@ -97,6 +95,7 @@ class ViewSubmissionsView(View):
 
     def get(self, request, bounty_id, *args, **kwargs):
         """Handles GET requests to show submissions for a bounty."""
+        # Ensure only the creator can view submissions
         bounty = get_object_or_404(Bounty, id=bounty_id, creator=request.user)
         submissions = Submission.objects.filter(bounty=bounty)
         context = {
@@ -138,22 +137,19 @@ class BountyBoardView(ListView):
         filtered_qs = self.filter.qs
 
         # Apply sorting based on user selection, defaulting to 'deadline_asc'
+        # Improved mapping for better readability
         sort_by = self.request.GET.get("sort", "deadline_asc")
-        if sort_by == "budget_asc":
-            return filtered_qs.order_by("budget_min")
-        elif sort_by == "budget_desc":
-            return filtered_qs.order_by("-budget_min")
-        elif sort_by == "created_at_asc":
-            return filtered_qs.order_by("created_at")
-        elif sort_by == "created_at_desc":
-            return filtered_qs.order_by("-created_at")
-        elif sort_by == "deadline_desc":
-            return filtered_qs.order_by("-deadline")
-        elif sort_by == "deadline_asc":
-            return filtered_qs.order_by("deadline")
-
-        # Fallback to the default sorting
-        return filtered_qs.order_by("deadline")
+        ordering_map = {
+            "budget_asc": "budget_min",
+            "budget_desc": "-budget_min",
+            "created_at_asc": "created_at",
+            "created_at_desc": "-created_at",
+            "deadline_desc": "-deadline",
+            "deadline_asc": "deadline",
+        }
+        
+        order_field = ordering_map.get(sort_by, "deadline")
+        return filtered_qs.order_by(order_field)
 
     def get_context_data(self, **kwargs):
         """
@@ -217,7 +213,9 @@ class BountyDetailView(FormMixin, DetailView):
         submission.bounty = self.object
         submission.editor = self.request.user
 
+        # INSTANT WINNER LOGIC:
         # If the deadline has passed, the first person to submit wins instantly.
+        # This mechanic encourages editors to check even expired/late bounties if they haven't been filled.
         if self.object.deadline < timezone.now():
             submission.is_winner = True
             # Mark the bounty as completed to prevent further submissions or winner changes.
@@ -229,6 +227,10 @@ class BountyDetailView(FormMixin, DetailView):
 
 
 class UserProfileView(DetailView):
+    """
+    Displays a user's profile with statistics and activity.
+    Adapts the content based on whether the user is a 'creator' or 'editor'.
+    """
     model = get_user_model()
     template_name = "core/profile.html"
     context_object_name = "profile_user"
@@ -239,12 +241,15 @@ class UserProfileView(DetailView):
         context = super().get_context_data(**kwargs)
         user = self.object
         
+        # Populate context with role-specific data
         if user.role == 'creator':
             context['bounties_posted_count'] = Bounty.objects.filter(creator=user).count()
+            # Show the 5 most recent active bounties
             context['active_bounties'] = Bounty.objects.filter(creator=user, status='active').order_by('-created_at')[:5]
         elif user.role == 'editor':
             context['submissions_count'] = Submission.objects.filter(editor=user).count()
             context['wins_count'] = Submission.objects.filter(editor=user, is_winner=True).count()
+            # Show the 5 most recent wins
             context['recent_wins'] = Submission.objects.filter(editor=user, is_winner=True).order_by('-submitted_at')[:5]
             
         return context
@@ -253,13 +258,16 @@ class UserProfileView(DetailView):
 class EditProfileView(LoginRequiredMixin, UpdateView):
     """
     Allows users to edit their own profile (bio and profile picture).
+    Uses LoginRequiredMixin to ensure only logged-in users can access.
     """
     model = get_user_model()
     form_class = UserProfileForm
     template_name = "core/edit_profile.html"
 
     def get_object(self, queryset=None):
+        """Override to return the current user, ignoring any pk in the URL."""
         return self.request.user
 
     def get_success_url(self):
+        """Redirect to the profile page after saving."""
         return reverse('profile', kwargs={'username': self.request.user.username})

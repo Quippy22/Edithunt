@@ -4,42 +4,74 @@
     <div class="container mx-auto px-4 py-8">
         <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6">
             <!-- Bounty Header -->
-            <div class="flex justify-between items-start mb-4">
+            <div class="flex flex-col md:flex-row justify-between items-start mb-4">
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ bounty.title }}</h1>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
                         Posted by: {{ bounty.creator.username }} on {{ bounty.created_at|date:"M d, Y" }}
                     </p>
+                    
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        {% for tag in bounty.tags.all %}
+                            <span class="tag-badge">{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
                 </div>
-                <div class="text-right">
-                    <span class="bounty-card-budget text-2xl">{{ bounty.budget_min }}
+                <div class="text-left md:text-right mt-4 md:mt-0">
+                    <span class="bounty-card-budget text-2xl block">{{ bounty.budget_min }}
                         {% if bounty.budget_max %}-{{ bounty.budget_max }}{% endif %}
                     EUR</span>
-                    {% remaining_time_display bounty.deadline as time_left %}
-                    <p class="font-bold {{ time_left.class }}">{{ time_left.text }}</p>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Deadline: {{ bounty.deadline|date:"M d, Y H:i" }}</p>
+                    <div class="mt-1">
+                        {% remaining_time_display bounty.deadline as time_left %}
+                        <p class="font-bold {{ time_left.class }}">{{ time_left.text }}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Deadline: {{ bounty.deadline|date:"M d, Y H:i" }}</p>
+                    </div>
                 </div>
             </div>
+            
+            <hr class="border-gray-200 dark:border-gray-700 mb-6">
+
             <!-- Bounty Description -->
-            <div class="mb-6">
-                <p class="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{{ bounty.description }}</p>
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Description</h2>
+                <div class="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200 whitespace-pre-wrap">
+                    {{ bounty.description }}
+                </div>
             </div>
-                    <!-- Footage Link -->
-                    <div class="mb-8">
-                        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Footage</h2>
-                        <a href="{{ bounty.footage_link }}" target="_blank" rel="noopener noreferrer" class="btn-secondary">Download Footage</a>
-                    </div>
+            
+            <!-- Footage Link -->
+            <div class="mb-8 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-700">
+                <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Raw Footage</h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                    Download the raw footage to start editing. Make sure to follow the instructions in the description.
+                </p>
+                <a href="{{ bounty.footage_link }}" target="_blank" rel="noopener noreferrer" class="btn-secondary inline-flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Download Footage
+                </a>
+            </div>
+
             <!-- Submission Section -->
-            <div>
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Submit Your Work</h2>
-                <form method="post" class="space-y-4">
-                    {% csrf_token %}
-                    <div>
-                        <label for="{{ form.file_link.id_for_label }}" class="form-label">File Link:</label>
-                        {{ form.file_link }}
-                    </div>
-                    <button type="submit" class="btn-primary">Submit Work</button>
-                </form>
+                {% if user.role == 'editor' %}
+                    <form method="post" class="space-y-4 max-w-xl">
+                        {% csrf_token %}
+                        <div>
+                            <label for="{{ form.file_link.id_for_label }}" class="form-label mb-1">Link to Edited Video (YouTube, Google Drive, etc.):</label>
+                            {{ form.file_link }}
+                            {% if form.file_link.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ form.file_link.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn-primary w-full sm:w-auto">Submit Work</button>
+                    </form>
+                {% elif user == bounty.creator %}
+                    <p class="text-gray-600 dark:text-gray-400 italic">You are the creator of this bounty.</p>
+                    <a href="{% url 'view_submissions' bounty.pk %}" class="btn-primary mt-2 inline-block">View Submissions</a>
+                {% else %}
+                     <p class="text-gray-600 dark:text-gray-400 italic">Only editors can submit work.</p>
+                {% endif %}
             </div>
         </div>
     </div>
