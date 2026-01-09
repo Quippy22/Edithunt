@@ -8,4 +8,4 @@ sqlparse==0.5.3
 django-filter==24.2
 django-crispy-forms==2.3
 crispy-tailwind==1.0.3
-geoip2==4.8.0
+geoip2==4.8.0Pillow

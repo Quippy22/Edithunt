@@ -1,19 +1,20 @@
 from re import sub
 
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, DetailView, ListView, View
+from django.views.generic import CreateView, DetailView, ListView, View, UpdateView
 from django.views.generic.edit import FormMixin
 
 from .filters import BountyFilter
-from .forms import BountyForm, CustomUserCreationForm, SubmissionForm
-from .models import Bounty, Submission
+from .forms import BountyForm, CustomUserCreationForm, SubmissionForm, UserProfileForm
+from .models import Bounty, Submission, CustomUser
 
 
 class SignUpView(CreateView):
@@ -102,7 +103,7 @@ class ViewSubmissionsView(View):
             "bounty": bounty,
             "submissions": submissions,
         }
-        return render(request, "core/view_sumbissions.html", context)
+        return render(request, "core/view_submissions.html", context)
 
 
 @method_decorator(login_required, name="dispatch")
@@ -225,3 +226,40 @@ class BountyDetailView(FormMixin, DetailView):
 
         submission.save()
         return super().form_valid(form)
+
+
+class UserProfileView(DetailView):
+    model = get_user_model()
+    template_name = "core/profile.html"
+    context_object_name = "profile_user"
+    slug_field = "username"
+    slug_url_kwarg = "username"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.object
+        
+        if user.role == 'creator':
+            context['bounties_posted_count'] = Bounty.objects.filter(creator=user).count()
+            context['active_bounties'] = Bounty.objects.filter(creator=user, status='active').order_by('-created_at')[:5]
+        elif user.role == 'editor':
+            context['submissions_count'] = Submission.objects.filter(editor=user).count()
+            context['wins_count'] = Submission.objects.filter(editor=user, is_winner=True).count()
+            context['recent_wins'] = Submission.objects.filter(editor=user, is_winner=True).order_by('-submitted_at')[:5]
+            
+        return context
+
+
+class EditProfileView(LoginRequiredMixin, UpdateView):
+    """
+    Allows users to edit their own profile (bio and profile picture).
+    """
+    model = get_user_model()
+    form_class = UserProfileForm
+    template_name = "core/edit_profile.html"
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse('profile', kwargs={'username': self.request.user.username})

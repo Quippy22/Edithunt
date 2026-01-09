@@ -5,7 +5,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Edithunt</title>
-        <link href="{% static 'css/dist/styles.css' %}" rel="stylesheet">
         {% block head %}{% endblock %}
         <!-- This script handles the dark mode theme switching.
          It checks the user's preference from localStorage or their system settings
@@ -22,7 +21,7 @@
     </head>
     <body class="bg-gray-100 dark:bg-gray-900 flex flex-col min-h-screen font-sans antialiased w-full">
         {% include 'partials/navbar.html' %}
-        <main class="flex-grow">
+        <main class="flex-grow w-full">
             {% block content %}{% endblock %}
         </main>
         {% include 'partials/footer.html' %}

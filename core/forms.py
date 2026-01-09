@@ -4,15 +4,18 @@ from datetime import date, datetime, timedelta
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import widgets
+from django.utils.translation import gettext_lazy as _
+from django.utils.safestring import mark_safe
+from django.urls import reverse
 
 from .models import Bounty, CustomUser, Submission
-
 
 class CustomUserCreationForm(UserCreationForm):
     """
     A form for creating new users, extending Django's default UserCreationForm
     to include our custom 'role' field.
     """
+    terms_agreement = forms.BooleanField(required=True)
 
     class Meta(UserCreationForm.Meta):
         model = CustomUser
@@ -23,7 +26,31 @@ class CustomUserCreationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         # Apply a consistent CSS class to all form fields for styling.
         for field_name, field in self.fields.items():
-            field.widget.attrs["class"] = "form-input"
+            if field_name != 'terms_agreement':
+                field.widget.attrs["class"] = "form-input"
+        
+        # We set the label here to avoid circular imports with reverse()
+        self.fields['terms_agreement'].label = mark_safe(
+            _('I have read and agree to the <a href="{url_terms}" target="_blank" class="text-purple-600 hover:underline">Terms & Conditions</a> and <a href="{url_privacy}" target="_blank" class="text-purple-600 hover:underline">Privacy Policy</a>.')
+            .format(url_terms=reverse('terms'), url_privacy=reverse('privacy'))
+        )
+
+
+class UserProfileForm(forms.ModelForm):
+    """
+    A form for users to edit their profile information.
+    """
+    class Meta:
+        model = CustomUser
+        fields = ['profile_picture', 'bio']
+        widgets = {
+            'bio': forms.Textarea(attrs={'rows': 4}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-input'
 
 
 class DateTimeSelectWidget(widgets.MultiWidget):
@@ -97,7 +124,9 @@ class DateTimeMultiValueField(forms.MultiValueField):
         Takes the list of cleaned values from the sub-fields and "compresses"
         them into a single Python datetime object.
         """
-        if data_list and all(data_list):
+        # We must check for None specifically, because 0 is a valid value for hour/minute
+        # but 'all(data_list)' would treat 0 as False, failing validation.
+        if data_list and all(v is not None for v in data_list):
             try:
                 return datetime(
                     year=data_list[2],

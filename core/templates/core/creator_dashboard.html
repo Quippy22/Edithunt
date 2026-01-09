@@ -3,7 +3,12 @@
     <!-- Main container for the Creator Dashboard -->
     <div class="container mx-auto px-4 py-8">
         <!-- Page heading -->
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Your Bounties</h1>
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Your Bounties</h1>
+            <a href="{% url 'post_bounty' %}" class="btn-primary flex items-center shadow-lg shadow-purple-500/20">
+                <span class="mr-2">+</span> Post New Bounty
+            </a>
+        </div>
         {% if bounties %}
             <!-- Grid layout for displaying bounty cards -->
             <div class="space-y-4">

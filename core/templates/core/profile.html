@@ -1,0 +1,135 @@
+{% extends 'theme/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-8">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+        
+        <!-- Header / Cover -->
+        <div class="h-32 bg-gradient-to-r from-purple-600 to-indigo-600"></div>
+        
+        <div class="px-6 pb-6">
+            <div class="flex flex-col md:flex-row items-center md:items-end -mt-12 mb-6">
+                <!-- Profile Picture -->
+                <div class="relative w-32 h-32 rounded-full border-4 border-white dark:border-gray-800 overflow-hidden bg-gray-200 shadow-md">
+                    {% if profile_user.profile_picture %}
+                        <img src="{{ profile_user.profile_picture.url }}" alt="{{ profile_user.username }}" class="w-full h-full object-cover">
+                    {% else %}
+                        <div class="w-full h-full flex items-center justify-center text-4xl text-gray-400">
+                            {{ profile_user.username|first|upper }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Name and Role -->
+                <div class="mt-4 md:mt-0 md:ml-6 text-center md:text-left flex-grow">
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ profile_user.username }}</h1>
+                    <div class="flex items-center justify-center md:justify-start mt-1 space-x-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide 
+                            {% if profile_user.role == 'creator' %}bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-200{% else %}bg-teal-100 text-teal-800 dark:bg-teal-900/50 dark:text-teal-200{% endif %}">
+                            {{ profile_user.get_role_display }}
+                        </span>
+                        {% if profile_user == request.user %}
+                            <span class="text-xs text-gray-500 dark:text-gray-400">({% trans "This is you" %})</span>
+                            <a href="{% url 'edit_profile' %}" class="ml-4 text-xs bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white px-3 py-1 rounded-full transition-colors">
+                                {% trans "Edit Profile" %}
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Left Column: Bio & Stats -->
+                <div class="md:col-span-1 space-y-6">
+                    <!-- Bio -->
+                    <div class="prose prose-sm dark:prose-invert">
+                        <h3 class="text-base font-bold text-gray-900 dark:text-white mb-2">{% trans "About" %}</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                            {% if profile_user.bio %}
+                                {{ profile_user.bio|linebreaksbr }}
+                            {% else %}
+                                <span class="italic text-gray-400">{% trans "No bio added yet." %}</span>
+                            {% endif %}
+                        </p>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="bg-white dark:bg-gray-700/30 border border-gray-200 dark:border-gray-700 rounded-xl p-5 shadow-sm">
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">{% trans "Stats" %}</h3>
+                        <div class="space-y-4">
+                            {% if profile_user.role == 'creator' %}
+                                <div>
+                                    <div class="text-2xl font-bold text-gray-900 dark:text-white">{{ bounties_posted_count }}</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">{% trans "Bounties Posted" %}</div>
+                                </div>
+                            {% elif profile_user.role == 'editor' %}
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <div class="text-2xl font-bold text-gray-900 dark:text-white">{{ submissions_count }}</div>
+                                        <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">{% trans "Submissions" %}</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-2xl font-bold text-teal-600 dark:text-teal-400">{{ wins_count }}</div>
+                                        <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">{% trans "Wins" %}</div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="pt-4 border-t border-gray-100 dark:border-gray-700">
+                                <div class="text-xs text-gray-400">{% trans "Joined" %}</div>
+                                <div class="text-sm font-medium text-gray-900 dark:text-white">{{ profile_user.date_joined|date:"F Y" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Activity -->
+                <div class="md:col-span-2">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{% trans "Recent Activity" %}</h3>
+                    
+                    {% if profile_user.role == 'creator' %}
+                        {% if active_bounties %}
+                            <div class="space-y-4">
+                                {% for bounty in active_bounties %}
+                                    <a href="{% url 'bounty_detail' bounty.pk %}" class="block bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-4 hover:shadow-md transition">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <h4 class="font-bold text-lg text-gray-900 dark:text-white">{{ bounty.title }}</h4>
+                                                <p class="text-sm text-gray-500 mt-1">{% trans "Posted" %} {{ bounty.created_at|timesince }} {% trans "ago" %}</p>
+                                            </div>
+                                            <span class="text-purple-600 font-bold">{{ bounty.budget_min }} - {{ bounty.budget_max }} RON</span>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-gray-500 italic">{% trans "No active bounties." %}</p>
+                        {% endif %}
+
+                    {% elif profile_user.role == 'editor' %}
+                        {% if recent_wins %}
+                            <div class="space-y-4">
+                                {% for win in recent_wins %}
+                                    <div class="bg-teal-50 dark:bg-teal-900/20 border border-teal-100 dark:border-teal-800 rounded-lg p-4">
+                                        <div class="flex items-center">
+                                            <div class="p-2 bg-teal-100 text-teal-600 rounded-full mr-3">
+                                                {% include 'partials/icons/trophy.html' %}
+                                            </div>
+                                            <div>
+                                                <h4 class="font-bold text-gray-900 dark:text-white">{% trans "Won Bounty:" %} {{ win.bounty.title }}</h4>
+                                                <p class="text-sm text-gray-500">{% trans "Awarded" %} {{ win.submitted_at|date }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-gray-500 italic">{% trans "No wins yet. Keep grinding!" %}</p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

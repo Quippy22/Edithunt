@@ -16,6 +16,10 @@ class CustomUser(AbstractUser):
     )
     # The role of the user, determining their permissions and available actions.
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default="editor")
+    
+    # Profile fields
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
 
 
 class Bounty(models.Model):
