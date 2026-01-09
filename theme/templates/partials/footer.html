@@ -1,0 +1,61 @@
+{% load i18n %}
+<footer class="bg-gray-200 dark:bg-gray-950 shadow-inner mt-auto">
+    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Company Info -->
+            <div>
+                <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 tracking-wider uppercase">
+                    Edithunt
+                </h3>
+                <p class="mt-4 text-base text-gray-600 dark:text-gray-300">
+                    {% trans "Connecting creators with the best video editors." %}
+                </p>
+            </div>
+
+            <!-- Support & Legal -->
+            <div>
+                <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 tracking-wider uppercase">
+                    {% trans "Resources" %}
+                </h3>
+                <ul class="mt-4 space-y-4">
+                    <li>
+                        <a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                            {% trans "Terms & Conditions" %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                            {% trans "Privacy Policy" %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                            {% trans "Support" %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Tech Stack & Credits -->
+            <div>
+                <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 tracking-wider uppercase">
+                    {% trans "Built With" %}
+                </h3>
+                <p class="mt-4 text-sm text-gray-600 dark:text-gray-300">
+                    {% trans "Powered by" %} <a href="https://www.djangoproject.com/" class="text-purple-600 hover:underline" target="_blank">Django</a> &
+                    <a href="https://tailwindcss.com/" class="text-teal-500 hover:underline" target="_blank">Tailwind CSS</a>.
+                </p>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-300 italic">
+                    {% trans "The Edithunt Team" %}
+                </p>
+            </div>
+        </div>
+        
+        <!-- Bottom Bar -->
+        <div class="mt-8 border-t border-gray-300 dark:border-gray-800 pt-8 md:flex md:items-center md:justify-between">
+            <p class="text-xs text-gray-500 dark:text-gray-400 text-center md:text-left">
+                &copy; {% now "Y" %} Edithunt. {% trans "All rights reserved." %}
+            </p>
+        </div>
+    </div>
+</footer>
