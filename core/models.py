@@ -15,11 +15,22 @@ class CustomUser(AbstractUser):
         ("editor", "Editor"),
     )
     # The role of the user, determining their permissions and available actions.
+    # Default is 'editor' as the platform expects more supply-side users initially.
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default="editor")
     
     # Profile fields
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
+
+
+class Tag(models.Model):
+    """
+    Represents a tag that can be attached to a bounty (e.g., 'Gaming', 'Vlog').
+    """
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Bounty(models.Model):
@@ -48,6 +59,7 @@ class Bounty(models.Model):
     # The minimum budget for the bounty. Used for filtering and display.
     budget_min = models.DecimalField(max_digits=8, decimal_places=2)
     # The maximum budget, for bounties offered as a range. Can be null.
+    # If null, it implies a fixed-price bounty equal to budget_min.
     budget_max = models.DecimalField(
         max_digits=8, decimal_places=2, null=True, blank=True
     )
@@ -55,6 +67,8 @@ class Bounty(models.Model):
     deadline = models.DateTimeField()
     # The current status of the bounty in its lifecycle.
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="active")
+    # Tags to categorize the bounty.
+    tags = models.ManyToManyField(Tag, related_name="bounties", blank=True)
     # The timestamp when the bounty was first created.
     created_at = models.DateTimeField(auto_now_add=True)
     # The timestamp of the last update to the bounty.

@@ -1,28 +1,36 @@
-{% load i18n %}
+{% load i18n static %}
+<!-- Main Navigation Bar -->
+<!-- Uses Tailwind classes for styling and Alpine.js for mobile menu interactivity -->
 <nav class="bg-white dark:bg-gray-800 shadow-lg z-50 relative"
      x-data="{ mobileMenuOpen: false }">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center py-4">
+            
             <!-- Left Side: Brand and Bounties Link -->
             <div class="flex items-center space-x-8">
-                <a href="{% url 'home' %}"
-                   class="text-2xl font-bold text-purple-600 dark:text-purple-400">Edithunt</a>
+                <!-- Brand Logo -->
+                <a href="{% url 'home' %}" class="flex items-center space-x-2">
+                    <img src="{% static 'images/favicon.png' %}" alt="Edithunt Logo" class="h-8 w-8">
+                    <span class="text-2xl font-bold text-purple-600 dark:text-purple-400">Edithunt</span>
+                </a>
+                
+                <!-- Desktop Navigation Links (Hidden on mobile) -->
                 <div class="hidden md:flex space-x-6">
                     {% if user.is_authenticated %}
+                        <!-- Conditional links based on user role -->
                         {% if user.role == 'creator' %}
                             <a href="{% url 'creator_dashboard' %}" class="nav-link">{% trans "My Bounties" %}</a>
                             <a href="{% url 'post_bounty' %}" class="text-purple-600 dark:text-purple-400 font-bold hover:text-purple-700 transition-colors">{% trans "Post a Bounty" %}</a>
                         {% elif user.role == 'editor' %}
                             <a href="{% url 'bounty_board' %}" class="nav-link">{% trans "Bounties" %}</a>
                         {% endif %}
-                    {% else %}
-                        <a href="{% url 'login' %}" class="nav-link">{% trans "Bounties" %}</a>
                     {% endif %}
                 </div>
             </div>
-            <!-- Right Side: Theme, Profile Dropdown / Login -->
+
+            <!-- Right Side: Theme Toggle and User Profile/Login -->
             <div class="hidden md:flex items-center space-x-4">
-                <!-- Theme toggle switch -->
+                <!-- Theme toggle switch (Dark/Light mode) -->
                 <div class="flex items-center">
                     <label for="theme-toggle"
                            class="relative inline-flex items-center cursor-pointer">
@@ -35,9 +43,11 @@
                         </div>
                     </label>
                 </div>
+
                 {% if user.is_authenticated %}
-                    <!-- Profile Dropdown -->
+                    <!-- User Dropdown Menu (Logged In) -->
                     <div class="relative" x-data="{ open: false }">
+                        <!-- Dropdown Trigger: Profile Picture or Default Icon -->
                         <button @click="open = !open"
                                 class="flex items-center text-gray-600 dark:text-gray-300 focus:outline-none transition-opacity hover:opacity-80">
                             {% if user.profile_picture %}
@@ -48,6 +58,8 @@
                                 </div>
                             {% endif %}
                         </button>
+                        
+                        <!-- Dropdown Content -->
                         <div x-show="open"
                              @click.away="open = false"
                              x-transition
@@ -61,10 +73,12 @@
                         </div>
                     </div>
                 {% else %}
+                    <!-- Login Button (Guest) -->
                     <a href="{% url 'login' %}" class="btn-primary">{% trans "Login" %}</a>
                 {% endif %}
             </div>
-            <!-- Mobile menu button -->
+
+            <!-- Mobile Menu Toggle Button (Visible only on small screens) -->
             <div class="md:hidden flex items-center">
                 <button @click="mobileMenuOpen = !mobileMenuOpen" class="mobile-menu-button">
                     <svg class="w-6 h-6 text-gray-600 dark:text-gray-300"
@@ -78,10 +92,11 @@
             </div>
         </div>
     </div>
-    <!-- Mobile menu content -->
+
+    <!-- Mobile Menu Drawer -->
     <div class="mobile-menu md:hidden" :class="{'hidden': !mobileMenuOpen}">
         <div class="px-4 pt-2 pb-3 space-y-1">
-            <!-- Bounties link for mobile -->
+            <!-- Navigation Links for Mobile -->
             {% if user.is_authenticated %}
                 {% if user.role == 'creator' %}
                     <a href="{% url 'creator_dashboard' %}" class="block py-2 nav-link">{% trans "My Bounties" %}</a>
@@ -89,10 +104,9 @@
                 {% elif user.role == 'editor' %}
                     <a href="{% url 'bounty_board' %}" class="block py-2 nav-link">{% trans "Bounties" %}</a>
                 {% endif %}
-            {% else %}
-                <a href="{% url 'login' %}" class="block py-2 nav-link">{% trans "Bounties" %}</a>
             {% endif %}
-            <!-- Profile/Auth links for mobile -->
+            
+            <!-- Auth Links for Mobile -->
             {% if user.is_authenticated %}
                 <div class="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
                     <a href="{% url 'profile' user.username %}" class="block py-2 nav-link">{% trans "View Profile" %}</a>
