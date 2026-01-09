@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-09 10:26+0000\n"
+"POT-Creation-Date: 2026-01-09 13:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,95 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
+#: core/forms.py:34
+#, python-brace-format
+msgid ""
+"I have read and agree to the <a href=\"{url_terms}\" target=\"_blank\" "
+"class=\"text-purple-600 hover:underline\">Terms & Conditions</a> and <a "
+"href=\"{url_privacy}\" target=\"_blank\" class=\"text-purple-600 "
+"hover:underline\">Privacy Policy</a>."
+msgstr ""
+
+#: core/templates/core/edit_profile.html:8
+msgid "Edit Your Profile"
+msgstr ""
+
+#: core/templates/core/edit_profile.html:38
+msgid "Cancel"
+msgstr ""
+
+#: core/templates/core/edit_profile.html:41
+msgid "Save Changes"
+msgstr ""
+
+#: core/templates/core/profile.html:33
+msgid "This is you"
+msgstr ""
+
+#: core/templates/core/profile.html:35
+msgid "Edit Profile"
+msgstr ""
+
+#: core/templates/core/profile.html:47
+msgid "About"
+msgstr ""
+
+#: core/templates/core/profile.html:52
+msgid "No bio added yet."
+msgstr ""
+
+#: core/templates/core/profile.html:59
+msgid "Stats"
+msgstr ""
+
+#: core/templates/core/profile.html:64
+#, fuzzy
+#| msgid "Bounties"
+msgid "Bounties Posted"
+msgstr "Recompense"
+
+#: core/templates/core/profile.html:70
+msgid "Submissions"
+msgstr ""
+
+#: core/templates/core/profile.html:74
+msgid "Wins"
+msgstr ""
+
+#: core/templates/core/profile.html:79
+msgid "Joined"
+msgstr ""
+
+#: core/templates/core/profile.html:88
+msgid "Recent Activity"
+msgstr ""
+
+#: core/templates/core/profile.html:98
+msgid "Posted"
+msgstr ""
+
+#: core/templates/core/profile.html:98
+msgid "ago"
+msgstr ""
+
+#: core/templates/core/profile.html:106
+msgid "No active bounties."
+msgstr ""
+
+#: core/templates/core/profile.html:119
+#, fuzzy
+#| msgid "Post a Bounty"
+msgid "Won Bounty:"
+msgstr "Postează o Recompensă"
+
+#: core/templates/core/profile.html:120
+msgid "Awarded"
+msgstr ""
+
+#: core/templates/core/profile.html:127
+msgid "No wins yet. Keep grinding!"
+msgstr ""
+
 #: core/templates/core/tutorial.html:9
 msgid "Welcome to the Hunt"
 msgstr "Bun venit la Vânătoare"
@@ -27,8 +116,7 @@ msgstr "Bun venit la Vânătoare"
 msgid ""
 "Learn how Edithunt revolutionizes the connection between vision and "
 "execution."
-msgstr ""
-"Află cum Edithunt revoluționează legătura dintre viziune și execuție."
+msgstr "Află cum Edithunt revoluționează legătura dintre viziune și execuție."
 
 #: core/templates/core/tutorial.html:23
 msgid "For Creators"
@@ -39,8 +127,9 @@ msgid ""
 "Edithunt is designed for creators who value quality and speed. Instead of "
 "browsing hundreds of portfolios, you let the results speak for themselves."
 msgstr ""
-"Edithunt este conceput pentru creatorii care pun preț pe calitate și viteză. În loc "
-"să răsfoiești sute de portofolii, lași rezultatele să vorbească de la sine."
+"Edithunt este conceput pentru creatorii care pun preț pe calitate și viteză. "
+"În loc să răsfoiești sute de portofolii, lași rezultatele să vorbească de la "
+"sine."
 
 #: core/templates/core/tutorial.html:31 theme/templates/home.html:95
 msgid "Post a Bounty"
@@ -75,8 +164,9 @@ msgid ""
 "Review the edited videos. Pick the one that fits your brand perfectly. The "
 "winner gets paid, and you get your high-quality video."
 msgstr ""
-"Analizează videoclipurile editate. Alege-l pe cel care se potrivește perfect cu brand-ul tău. "
-"Câștigătorul este plătit, iar tu primești videoclipul tău de înaltă calitate."
+"Analizează videoclipurile editate. Alege-l pe cel care se potrivește perfect "
+"cu brand-ul tău. Câștigătorul este plătit, iar tu primești videoclipul tău "
+"de înaltă calitate."
 
 #: core/templates/core/tutorial.html:43
 msgid "Build Relationships"
@@ -87,8 +177,8 @@ msgid ""
 "Found an editor you love? You can see their past wins and contact them "
 "directly for future private projects."
 msgstr ""
-"Ai găsit un editor care îți place? Poți vedea victoriile lor trecute și îi poți "
-"contacta direct pentru viitoare proiecte private."
+"Ai găsit un editor care îți place? Poți vedea victoriile lor trecute și îi "
+"poți contacta direct pentru viitoare proiecte private."
 
 #: core/templates/core/tutorial.html:56
 msgid "For Editors"
@@ -99,8 +189,8 @@ msgid ""
 "New to the industry? Or a veteran looking for quick gigs? Edithunt provides "
 "a level playing field where your skills are your only resume."
 msgstr ""
-"Ești nou în industrie? Sau un veteran în căutare de contracte rapide? Edithunt oferă "
-"șanse egale unde abilitățile tale sunt singurul tău CV."
+"Ești nou în industrie? Sau un veteran în căutare de contracte rapide? "
+"Edithunt oferă șanse egale unde abilitățile tale sunt singurul tău CV."
 
 #: core/templates/core/tutorial.html:64
 msgid "Find Your Hunt"
@@ -111,8 +201,8 @@ msgid ""
 "Browse the Bounty Board. Filter by budget or deadline. Download the footage "
 "and show off your unique editing style."
 msgstr ""
-"Răsfoiește panoul cu recompense. Filtrează după buget sau termen limită. Descarcă "
-"materialul brut și demonstrează-ți stilul unic de editare."
+"Răsfoiește panoul cu recompense. Filtrează după buget sau termen limită. "
+"Descarcă materialul brut și demonstrează-ți stilul unic de editare."
 
 #: core/templates/core/tutorial.html:68
 msgid "The Automatic Portfolio"
@@ -123,8 +213,9 @@ msgid ""
 "Every submission you make is saved to your profile. Even if you don't win, "
 "you've built a portfolio of real-world work hosted on our platform."
 msgstr ""
-"Fiecare propunere pe care o faci este salvată pe profilul tău. Chiar dacă nu câștigi, "
-"ți-ai construit un portofoliu de lucrări reale găzduit pe platforma noastră."
+"Fiecare propunere pe care o faci este salvată pe profilul tău. Chiar dacă nu "
+"câștigi, ți-ai construit un portofoliu de lucrări reale găzduit pe platforma "
+"noastră."
 
 #: core/templates/core/tutorial.html:72
 msgid "Instant Payouts"
@@ -147,38 +238,53 @@ msgid ""
 "Your profile displays your win rate, ratings, and best work. High-ranking "
 "editors are frequently scouted by top creators for long-term work."
 msgstr ""
-"Profilul tău afișează rata de câștig, recenziile și cele mai bune lucrări. Editorii "
-"de top sunt frecvent recrutați de creatori mari pentru colaborări pe termen lung."
+"Profilul tău afișează rata de câștig, recenziile și cele mai bune lucrări. "
+"Editorii de top sunt frecvent recrutați de creatori mari pentru colaborări "
+"pe termen lung."
 
 #: core/templates/core/tutorial.html:86
 msgid "Join the Hunt Today"
 msgstr "Alătură-te Vânătorii Astăzi"
 
-#: edithunt/settings.py:130
+#: edithunt/settings.py:126
 msgid "English"
 msgstr "Engleză"
 
-#: edithunt/settings.py:131
+#: edithunt/settings.py:127
 msgid "Romanian"
 msgstr "Română"
 
-#: theme/templates/home.html:13
+#: theme/templates/home.html:10
+msgid "The ultimate marketplace for video creators and editors."
+msgstr ""
+
+#: theme/templates/home.html:15
+msgid "Dashboard"
+msgstr ""
+
+#: theme/templates/home.html:17
+#, fuzzy
+#| msgid "Bounties"
+msgid "Browse Bounties"
+msgstr "Recompense"
+
+#: theme/templates/home.html:20
 msgid "Get Started"
 msgstr "Începe Acum"
 
-#: theme/templates/home.html:14
+#: theme/templates/home.html:22
 msgid "Learn More"
 msgstr "Află Mai Multe"
 
-#: theme/templates/home.html:34
+#: theme/templates/home.html:41
 msgid "Scale Your Content"
 msgstr "Scalează-ți Conținutul"
 
-#: theme/templates/home.html:35
+#: theme/templates/home.html:42
 msgid "Outsource Effortlessly"
 msgstr "Externalizează Fără Efort"
 
-#: theme/templates/home.html:38
+#: theme/templates/home.html:45
 msgid ""
 "Stop spending hours in the timeline. Whether you need a quick social cut or "
 "a full-length documentary, post a bounty and let the talent come to you. "
@@ -190,23 +296,23 @@ msgstr ""
 "postează o recompensă și lasă talentul să vină la tine. Concentrează-te pe "
 "filmare și poveste în timp ce noi ne ocupăm de logistica post-producției."
 
-#: theme/templates/home.html:42
+#: theme/templates/home.html:49
 msgid "Access a global pool of talent."
 msgstr "Acces la o rețea globală de talente."
 
-#: theme/templates/home.html:45
+#: theme/templates/home.html:52
 msgid "Set your own budget and deadlines."
 msgstr "Setează propriul buget și termene limită."
 
-#: theme/templates/home.html:63
+#: theme/templates/home.html:69
 msgid "Build Your Legacy."
 msgstr "Construiește-ți Moștenirea."
 
-#: theme/templates/home.html:64
+#: theme/templates/home.html:70
 msgid "No Work is Ever Wasted."
 msgstr "Nicio Muncă Nu Este Irosită."
 
-#: theme/templates/home.html:67
+#: theme/templates/home.html:73
 msgid ""
 "We believe every edit tells a story. Even if your submission doesn't win the "
 "bounty, it automatically becomes a permanent part of your on-site portfolio."
@@ -215,7 +321,7 @@ msgstr ""
 "câștigă recompensa, aceasta devine automat o parte permanentă a "
 "portofoliului tău pe site."
 
-#: theme/templates/home.html:71
+#: theme/templates/home.html:77
 msgid ""
 "Showcase your skills, collect ratings from real creators, and let your "
 "profile become your resume. Clients can contact you directly based on your "
@@ -225,7 +331,7 @@ msgstr ""
 "lasă profilul tău să devină CV-ul tău. Clienții te pot contacta direct pe "
 "baza lucrărilor tale."
 
-#: theme/templates/home.html:83
+#: theme/templates/home.html:89
 msgid "How It Works"
 msgstr "Cum Funcționează"
 
@@ -233,73 +339,80 @@ msgstr "Cum Funcționează"
 msgid ""
 "Creators post video editing jobs with a description, budget, and deadline."
 msgstr ""
-"Creatorii postează joburi de editare video cu o descriere, buget și termen limită."
+"Creatorii postează joburi de editare video cu o descriere, buget și termen "
+"limită."
 
-#: theme/templates/home.html:99 theme/templates/home.html:123
-#: theme/templates/home.html:147
-msgid "Click to flip"
-msgstr "Click pentru detalii"
-
-#: theme/templates/home.html:104
-msgid "The Process"
-msgstr "Procesul"
-
-#: theme/templates/home.html:106
-msgid ""
-"Define your vision, upload your footage, and set a reward. Within minutes, "
-"editors from around the world will start crafting their versions of your "
-"story. You get to see different styles before you commit to a winner."
-msgstr ""
-"Definește-ți viziunea, încarcă materialul brut și setează o recompensă. În câteva minute, "
-"editori din întreaga lume vor începe să creeze versiunile lor pentru povestea ta. "
-"Poți vedea stiluri diferite înainte de a alege un câștigător."
-
-#: theme/templates/home.html:121
+#: theme/templates/home.html:105
 msgid "Editors Compete"
 msgstr "Editorii Competă"
 
-#: theme/templates/home.html:122
+#: theme/templates/home.html:106
 msgid "Skilled editors submit their best work to win the bounty."
 msgstr ""
 "Editorii talentați trimit cele mai bune lucrări pentru a câștiga recompensa."
 
-#: theme/templates/home.html:128
-msgid "The Grind"
-msgstr "Munca"
-
-#: theme/templates/home.html:130
-msgid ""
-"Pick a bounty that matches your style. Edit your heart out and submit. Win "
-"or lose, your work is showcased on your profile, helping you build a "
-"professional portfolio that clients can see and use to hire you for direct "
-"projects."
-msgstr ""
-"Alege o recompensă care se potrivește stilului tău. Editează cu pasiune și trimite. "
-"Câștigi sau pierzi, munca ta este expusă pe profilul tău, ajutându-te să construiești "
-"un portofoliu profesional pe care clienții îl pot vedea pentru a te angaja direct."
-
-#: theme/templates/home.html:145
+#: theme/templates/home.html:113
 msgid "Choose a Winner"
 msgstr "Alege Câștigătorul"
 
-#: theme/templates/home.html:146
+#: theme/templates/home.html:114
 msgid "Creators review submissions and award the bounty to the best editor."
 msgstr ""
 "Creatorii analizează propunerile și acordă recompensa celui mai bun editor."
 
-#: theme/templates/home.html:152
-msgid "The Reward"
-msgstr "Răsplata"
-
-#: theme/templates/home.html:154
-msgid ""
-"Once the deadline hits, the creator picks the edit they love most. The "
-"winner gets paid instantly and gains a 'Winner' badge. Every submission "
-"builds trust and increases your rating on the platform."
+#: theme/templates/home.html:126
+msgid "Why Creators Choose Us"
 msgstr ""
-"Odată ce termenul limită a expirat, creatorul alege editarea care îi place cel mai mult. "
-"Câștigătorul este plătit instant și primește o insignă de 'Câștigător'. Fiecare propunere "
-"construiește încredere și îți crește rating-ul pe platformă."
+
+#: theme/templates/home.html:129
+msgid "We built Edithunt to solve the biggest pain points in content creation."
+msgstr ""
+
+#: theme/templates/home.html:139
+msgid "Lightning Fast Turnaround"
+msgstr ""
+
+#: theme/templates/home.html:141
+msgid ""
+"Get your edits back in hours, not days. Multiple editors working "
+"simultaneously means you always meet your deadline."
+msgstr ""
+
+#: theme/templates/home.html:150
+msgid "Secure Payments"
+msgstr ""
+
+#: theme/templates/home.html:152
+msgid ""
+"Your budget is held safely in escrow. Funds are only released to the editor "
+"once you approve the final delivery."
+msgstr ""
+
+#: theme/templates/home.html:161
+msgid "Top Tier Talent"
+msgstr ""
+
+#: theme/templates/home.html:163
+msgid ""
+"Access a vetted network of creative editors who understand social media "
+"trends and storytelling."
+msgstr ""
+
+#: theme/templates/home.html:173
+msgid "A Global Creative Network"
+msgstr ""
+
+#: theme/templates/home.html:175
+msgid ""
+"Stop letting raw footage gather dust. Connect with editors from over 50 "
+"countries who are ready to turn your content into viral gold."
+msgstr ""
+
+#: theme/templates/home.html:183
+#, fuzzy
+#| msgid "Join the Hunt Today"
+msgid "Join the Movement"
+msgstr "Alătură-te Vânătorii Astăzi"
 
 #: theme/templates/partials/footer.html:11
 msgid "Connecting creators with the best video editors."
@@ -340,21 +453,80 @@ msgstr "Toate drepturile rezervate."
 #: theme/templates/partials/navbar.html:13
 #: theme/templates/partials/navbar.html:15
 #: theme/templates/partials/navbar.html:18
-#: theme/templates/partials/navbar.html:80
-#: theme/templates/partials/navbar.html:82
-#: theme/templates/partials/navbar.html:85
+#: theme/templates/partials/navbar.html:86
+#: theme/templates/partials/navbar.html:88
+#: theme/templates/partials/navbar.html:91
 msgid "Bounties"
 msgstr "Recompense"
 
-#: theme/templates/partials/navbar.html:52
-#: theme/templates/partials/navbar.html:94
+#: theme/templates/partials/navbar.html:54
+#: theme/templates/partials/navbar.html:96
+msgid "View Profile"
+msgstr ""
+
+#: theme/templates/partials/navbar.html:58
+#: theme/templates/partials/navbar.html:100
 msgid "Logout"
 msgstr "Deconectare"
 
-#: theme/templates/partials/navbar.html:57
-#: theme/templates/partials/navbar.html:99
+#: theme/templates/partials/navbar.html:63
+#: theme/templates/partials/navbar.html:105
 msgid "Login"
 msgstr "Autentificare"
+
+#, fuzzy
+#~| msgid "Editors Compete"
+#~ msgid "Editors Hunt"
+#~ msgstr "Editorii Competă"
+
+#, fuzzy
+#~| msgid "How It Works"
+#~ msgid "Buy What Works"
+#~ msgstr "Cum Funcționează"
+
+#~ msgid "Click to flip"
+#~ msgstr "Click pentru detalii"
+
+#~ msgid "The Process"
+#~ msgstr "Procesul"
+
+#~ msgid ""
+#~ "Define your vision, upload your footage, and set a reward. Within "
+#~ "minutes, editors from around the world will start crafting their versions "
+#~ "of your story. You get to see different styles before you commit to a "
+#~ "winner."
+#~ msgstr ""
+#~ "Definește-ți viziunea, încarcă materialul brut și setează o recompensă. "
+#~ "În câteva minute, editori din întreaga lume vor începe să creeze "
+#~ "versiunile lor pentru povestea ta. Poți vedea stiluri diferite înainte de "
+#~ "a alege un câștigător."
+
+#~ msgid "The Grind"
+#~ msgstr "Munca"
+
+#~ msgid ""
+#~ "Pick a bounty that matches your style. Edit your heart out and submit. "
+#~ "Win or lose, your work is showcased on your profile, helping you build a "
+#~ "professional portfolio that clients can see and use to hire you for "
+#~ "direct projects."
+#~ msgstr ""
+#~ "Alege o recompensă care se potrivește stilului tău. Editează cu pasiune "
+#~ "și trimite. Câștigi sau pierzi, munca ta este expusă pe profilul tău, "
+#~ "ajutându-te să construiești un portofoliu profesional pe care clienții îl "
+#~ "pot vedea pentru a te angaja direct."
+
+#~ msgid "The Reward"
+#~ msgstr "Răsplata"
+
+#~ msgid ""
+#~ "Once the deadline hits, the creator picks the edit they love most. The "
+#~ "winner gets paid instantly and gains a 'Winner' badge. Every submission "
+#~ "builds trust and increases your rating on the platform."
+#~ msgstr ""
+#~ "Odată ce termenul limită a expirat, creatorul alege editarea care îi "
+#~ "place cel mai mult. Câștigătorul este plătit instant și primește o "
+#~ "insignă de 'Câștigător'. Fiecare propunere construiește încredere și îți "
+#~ "crește rating-ul pe platformă."
 
 #~ msgid "Assisted by"
 #~ msgstr "Asistat de"

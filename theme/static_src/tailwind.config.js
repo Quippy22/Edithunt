@@ -8,6 +8,12 @@ module.exports = {
       '../../templates/**/*.html',
   ],
   darkMode: 'class',
+  safelist: [
+    'flex-col',
+    'min-h-screen',
+    'w-full',
+    'flex-grow',
+  ],
   theme: {
     extend: {},
   },

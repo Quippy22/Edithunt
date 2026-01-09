@@ -7,10 +7,11 @@
             <div class="flex items-center space-x-8">
                 <a href="{% url 'home' %}"
                    class="text-2xl font-bold text-purple-600 dark:text-purple-400">Edithunt</a>
-                <div class="hidden md:flex">
+                <div class="hidden md:flex space-x-6">
                     {% if user.is_authenticated %}
                         {% if user.role == 'creator' %}
-                            <a href="{% url 'creator_dashboard' %}" class="nav-link">{% trans "Bounties" %}</a>
+                            <a href="{% url 'creator_dashboard' %}" class="nav-link">{% trans "My Bounties" %}</a>
+                            <a href="{% url 'post_bounty' %}" class="text-purple-600 dark:text-purple-400 font-bold hover:text-purple-700 transition-colors">{% trans "Post a Bounty" %}</a>
                         {% elif user.role == 'editor' %}
                             <a href="{% url 'bounty_board' %}" class="nav-link">{% trans "Bounties" %}</a>
                         {% endif %}
@@ -38,14 +39,20 @@
                     <!-- Profile Dropdown -->
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open"
-                                class="flex items-center text-gray-600 dark:text-gray-300 focus:outline-none">
-                            {% include 'partials/icons/user.html' %}
+                                class="flex items-center text-gray-600 dark:text-gray-300 focus:outline-none transition-opacity hover:opacity-80">
+                            {% if user.profile_picture %}
+                                <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="w-8 h-8 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600">
+                            {% else %}
+                                <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
+                                    {% include 'partials/icons/user.html' %}
+                                </div>
+                            {% endif %}
                         </button>
                         <div x-show="open"
                              @click.away="open = false"
                              x-transition
                              class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg py-1 z-50">
-                            <a href="#" class="dropdown-item">View Profile</a>
+                            <a href="{% url 'profile' user.username %}" class="dropdown-item">{% trans "View Profile" %}</a>
                             <a href="{% url 'logout' %}"
                                class="flex items-center w-full text-left dropdown-item">
                                 {% include 'partials/icons/door.html' %}
@@ -77,7 +84,8 @@
             <!-- Bounties link for mobile -->
             {% if user.is_authenticated %}
                 {% if user.role == 'creator' %}
-                    <a href="{% url 'creator_dashboard' %}" class="block py-2 nav-link">{% trans "Bounties" %}</a>
+                    <a href="{% url 'creator_dashboard' %}" class="block py-2 nav-link">{% trans "My Bounties" %}</a>
+                    <a href="{% url 'post_bounty' %}" class="block py-2 text-purple-600 dark:text-purple-400 font-bold">{% trans "Post a Bounty" %}</a>
                 {% elif user.role == 'editor' %}
                     <a href="{% url 'bounty_board' %}" class="block py-2 nav-link">{% trans "Bounties" %}</a>
                 {% endif %}
@@ -87,7 +95,7 @@
             <!-- Profile/Auth links for mobile -->
             {% if user.is_authenticated %}
                 <div class="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                    <a href="#" class="block py-2 nav-link">View Profile</a>
+                    <a href="{% url 'profile' user.username %}" class="block py-2 nav-link">{% trans "View Profile" %}</a>
                     <a href="{% url 'logout' %}"
                        class="flex items-center w-full text-left py-2 nav-link">
                         {% include 'partials/icons/door.html' %}

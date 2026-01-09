@@ -1,0 +1,48 @@
+{% extends 'theme/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
+            {% trans "Edit Your Profile" %}
+        </h2>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white dark:bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                <div>
+                    <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        {{ field.label }}
+                    </label>
+                    <div class="mt-1">
+                        {{ field }}
+                    </div>
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <p class="mt-2 text-sm text-red-600">{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {% if field.help_text %}
+                        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ field.help_text }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <div class="flex items-center justify-between">
+                    <a href="{% url 'profile' user.username %}" class="text-sm font-medium text-purple-600 hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300">
+                        {% trans "Cancel" %}
+                    </a>
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:w-auto">
+                        {% trans "Save Changes" %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'theme/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="bg-white dark:bg-gray-900 min-h-screen">
+    <div class="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8 text-gray-800 dark:text-gray-200">
+        
+        <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-8">POLITICA DE CONFIDENȚIALITATE</h1>
+        <p class="mb-4"><strong>Operator:</strong> EDIT HUNT S.R.L.</p>
+        <p class="mb-4"><strong>Versiunea:</strong> 1.0</p>
+        <hr class="my-8 border-gray-200 dark:border-gray-700">
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">1. INTRODUCERE</h2>
+        <p class="mb-4">Această politică descrie modul în care EDIT HUNT S.R.L. colectează, utilizează și protejează datele dumneavoastră personale conform GDPR și legislației române.</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">2. DATE COLECTATE</h2>
+        <h3 class="text-xl font-semibold mt-6 mb-2">La înregistrare:</h3>
+        <ul class="list-disc pl-5 space-y-2 mb-6">
+            <li>Nume și prenume</li>
+            <li>Adresă de email</li>
+            <li>Parolă (criptată)</li>
+            <li>Data nașterii (pentru validare 16+)</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold mt-6 mb-2">Date financiare (pentru plăți):</h3>
+        <p class="mb-4">Date necesare procesării plăților (IBAN, detalii card parțiale) prin procesatori autorizați (Stripe/PayPal).</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">3. SCOPUL PRELUCRĂRII</h2>
+        <ul class="list-disc pl-5 space-y-2 mb-6">
+            <li>Furnizarea serviciilor platformei (conectare creatori-editori).</li>
+            <li>Procesarea plăților și facturare.</li>
+            <li>Securitate și prevenirea fraudei.</li>
+            <li>Comunicări esențiale legate de cont.</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">4. PARTAJAREA DATELOR</h2>
+        <p class="mb-4">Nu vindem datele dumneavoastră. Le partajăm doar cu:</p>
+        <ul class="list-disc pl-5 space-y-2 mb-6">
+            <li>Procesatori de plăți (pentru tranzacții)</li>
+            <li>Furnizori de hosting/cloud (pentru stocare)</li>
+            <li>Autorități legale (doar dacă suntem obligați)</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">5. DREPTURILE DUMNEAVOASTRĂ</h2>
+        <p class="mb-4">Conform GDPR, aveți dreptul la:</p>
+        <ul class="list-disc pl-5 space-y-2 mb-6">
+            <li>Acces la date</li>
+            <li>Rectificarea datelor</li>
+            <li>Ștergerea datelor ("dreptul de a fi uitat")</li>
+            <li>Restricționarea prelucrării</li>
+            <li>Portabilitatea datelor</li>
+        </ul>
+        <p class="mb-4">Pentru exercitarea drepturilor, contactați: <strong>privacy@edithunt.ro</strong></p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">6. PĂSTRAREA DATELOR</h2>
+        <p class="mb-4">Păstrăm datele cât timp aveți contul activ. Datele financiare sunt păstrate 10 ani conform legii fiscale. Videoclipurile sunt șterse la 90 de zile după finalizarea proiectului.</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">7. CONTACT</h2>
+        <p class="mb-4">Pentru orice întrebări legate de confidențialitate:</p>
+        <p>Email: <a href="mailto:privacy@edithunt.ro" class="text-purple-600 hover:underline">privacy@edithunt.ro</a></p>
+        <p>Adresă: Str. Nicolae Romanescu nr. 15, Craiova, jud. Dolj, România</p>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,2 +1,174 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
+
+/* Hide spinner controls for number inputs */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+@layer components {
+  /* Buttons */
+  .btn-primary {
+    @apply bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 font-bold py-2 px-4 rounded transition-colors;
+  }
+
+  /* Forms Generic */
+  .form-input {
+    @apply shadow appearance-none border rounded w-full py-2 px-3 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white leading-tight focus:outline-none focus:border-purple-500 dark:focus:border-purple-400 transition-colors;
+  }
+  
+  /* Widget & Post Bounty Specifics (Restored) */
+  .deadline-selects-container {
+    @apply flex gap-2;
+  }
+  .deadline-select-wrapper {
+      @apply flex-1 flex items-center;
+  }
+  .deadline-select-wrapper select {
+      @apply shadow appearance-none border rounded w-full py-2 px-3 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-200 leading-tight focus:outline-none focus:border-purple-500 dark:focus:border-purple-400 transition-colors;
+  }
+  .time-label {
+      @apply ml-1 font-medium text-gray-700 dark:text-gray-300;
+  }
+  .currency-label {
+      @apply ml-2 font-medium text-gray-700 dark:text-gray-300;
+  }
+  .post-bounty-container {
+      @apply container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8;
+  }
+  .form-container {
+      @apply lg:col-span-2 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg;
+  }
+  .rules-container {
+      @apply lg:col-span-1;
+  }
+  .rules-heading {
+      @apply text-xl font-bold text-gray-900 dark:text-white mb-4;
+  }
+  .rules-list {
+      @apply list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300;
+  }
+  .budget-input-wrapper {
+      @apply flex items-center gap-2;
+  }
+  .budget-input-wrapper input {
+      @apply shadow appearance-none border rounded w-full py-2 px-3 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-200 leading-tight focus:outline-none focus:border-purple-500 dark:focus:border-purple-400 transition-colors;
+  }
+  .bounty-summary::-webkit-details-marker {
+      display: none;
+  }
+  .bounty-summary {
+      list-style: none;
+  }
+  .bounty-card[open] .bounty-summary {
+      border-bottom: 1px solid;
+      @apply border-gray-200 dark:border-gray-700;
+  }
+
+  /* Theme Toggle */
+  .toggle-track {
+    @apply relative w-11 h-6 bg-gray-200 rounded-full transition-colors dark:bg-gray-700;
+  }
+  .toggle-knob {
+    @apply absolute top-[2px] left-[2px] bg-white rounded-full h-5 w-5 transition-transform flex items-center justify-center;
+  }
+  .toggle-sun {
+    @apply opacity-100 transition-opacity text-yellow-500;
+  }
+  .toggle-moon {
+    @apply absolute opacity-0 transition-opacity text-purple-600;
+  }
+
+  /* Peer states for Toggle */
+  .peer:checked ~ .toggle-track {
+    @apply bg-purple-600;
+  }
+  .peer:checked ~ .toggle-track > .toggle-knob {
+    @apply translate-x-full;
+  }
+  .peer:checked ~ .toggle-track .toggle-sun {
+    @apply opacity-0;
+  }
+  .peer:checked ~ .toggle-track .toggle-moon {
+    @apply opacity-100;
+  }
+  .peer:focus ~ .toggle-track {
+    @apply ring-4 ring-purple-300 dark:ring-purple-800;
+  }
+
+  /* Navigation & Dropdowns */
+  .nav-link {
+    @apply text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors;
+  }
+  .dropdown-item {
+    @apply block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-purple-500 hover:text-white dark:hover:bg-purple-600 transition-colors;
+  }
+
+  /* Auth Pages (Restored) */
+  .auth-container {
+    @apply bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 flex items-center justify-center p-4 w-full h-full min-h-[60vh];
+  }
+  .auth-card {
+    @apply w-full max-w-md;
+  }
+  .auth-heading {
+    @apply text-3xl font-bold text-center mb-6 text-gray-900 dark:text-white;
+  }
+  .auth-form {
+    @apply bg-white dark:bg-gray-800 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4;
+  }
+  .auth-form-footer {
+    @apply text-center text-gray-500 dark:text-gray-400 text-sm mt-6;
+  }
+  .auth-link {
+    @apply text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300;
+  }
+
+  /* Bounty Cards */
+  .bounty-card {
+    @apply bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden cursor-pointer transition-transform hover:scale-[1.01];
+  }
+  .bounty-card-summary {
+    @apply p-6 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none transition-colors;
+  }
+  .bounty-card-title {
+    @apply text-xl font-semibold text-gray-900 dark:text-white;
+  }
+  .bounty-card-budget {
+    @apply text-lg font-bold text-purple-600 dark:text-purple-400;
+  }
+  
+  /* Form Containers */
+  .form-container-generic {
+      @apply max-w-2xl mx-auto mt-10 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg;
+  }
+  .form-heading {
+      @apply text-3xl font-bold text-gray-900 dark:text-white mb-6;
+  }
+
+  /* Additional Classes found in templates */
+  .bounty-filter-card {
+    @apply bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 mb-8;
+  }
+  .bounty-filter-select {
+      @apply shadow appearance-none border rounded w-full py-2 px-3 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-200 leading-tight focus:outline-none focus:border-purple-500 dark:focus:border-purple-400 mt-1 block w-full rounded-md shadow-sm transition-colors;
+  }
+  .form-label {
+      @apply block text-sm font-medium text-gray-700 dark:text-gray-300;
+  }
+  .pagination-button {
+      @apply px-4 py-2 border rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors;
+  }
+  .pagination-button-active {
+      @apply px-4 py-2 border rounded-md text-white bg-purple-600 dark:bg-purple-700;
+  }
+}

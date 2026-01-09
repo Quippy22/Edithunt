@@ -9,6 +9,8 @@ from .views import (
     PostBountyView,
     SignUpView,
     ViewSubmissionsView,
+    UserProfileView,
+    EditProfileView,
     logout_view,
 )
 
@@ -25,6 +27,10 @@ urlpatterns = [
     ),
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path("tutorial/", TemplateView.as_view(template_name="core/tutorial.html"), name="tutorial"),
+    path("terms/", TemplateView.as_view(template_name="core/terms.html"), name="terms"),
+    path("privacy/", TemplateView.as_view(template_name="core/privacy.html"), name="privacy"),
     path("bounty-board/", BountyBoardView.as_view(), name="bounty_board"),
     path("bounty/<int:pk>/", BountyDetailView.as_view(), name="bounty_detail"),
+    path("profile/edit/", EditProfileView.as_view(), name="edit_profile"),
+    path("profile/<str:username>/", UserProfileView.as_view(), name="profile"),
 ]

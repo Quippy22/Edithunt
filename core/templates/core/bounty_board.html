@@ -1,4 +1,4 @@
-{% extends 'core/base.html' %}
+{% extends 'theme/base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% load bounty_helpers %}
@@ -8,8 +8,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <!-- Left Column: Filters -->
             <aside class="lg:col-span-1">
-                <div class="form-container">
-                    <h2 class="form-heading">Filter & Sort</h2>
+                <div class="bounty-filter-card">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Filter & Sort</h2>
                     <form method="get" id="filter-form" class="space-y-6">
                         <div>
                             <label for="{{ filter.form.budget_min.id_for_label }}" class="form-label">{{ filter.form.budget_min.label }}</label>
@@ -78,7 +78,7 @@
                 </div>
             </aside>
             <!-- Right Column: Bounties -->
-            <main class="lg:col-span-3">
+            <div class="lg:col-span-3">
                 {% if bounties %}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {% for bounty in bounties %}
@@ -131,7 +131,7 @@
                 {% else %}
                     <p class="text-gray-700 dark:text-gray-300">No bounties match your criteria. Try adjusting your filters!</p>
                 {% endif %}
-            </main>
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'theme/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="bg-white dark:bg-gray-900 min-h-screen">
+    <div class="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8 text-gray-800 dark:text-gray-200">
+        
+        <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-8">TERMENI ȘI CONDIȚII - Platforma EDIT HUNT</h1>
+        <p class="mb-4"><strong>Data ultimei actualizări:</strong> {% now "d F Y" %}</p>
+        <hr class="my-8 border-gray-200 dark:border-gray-700">
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">1. DEFINIȚII</h2>
+        <ul class="list-disc pl-5 space-y-2 mb-6">
+            <li><strong>Platformă</strong> sau <strong>Edit Hunt</strong>: platforma online accesibilă la www.edithunt.ro operată de EDIT HUNT S.R.L.</li>
+            <li><strong>Utilizator</strong>: orice persoană fizică sau juridică care accesează și utilizează Platforma</li>
+            <li><strong>Content Creator</strong>: utilizator care încarcă videoclipuri needitate pe Platformă și oferă recompense pentru editare</li>
+            <li><strong>Editor</strong>: utilizator care editează videoclipuri și participă la concursuri pentru a câștiga recompense</li>
+            <li><strong>Proiect</strong>: un videoclip needitat încărcat de un Content Creator pentru a fi editat</li>
+            <li><strong>Sample</strong>: un fragment editat al videoclipului trimis de Editor către Content Creator pentru evaluare</li>
+            <li><strong>Concurs</strong>: procesul prin care mai mulți Editori concurează pentru același Proiect</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">2. ACCEPTAREA TERMENILOR</h2>
+        <p class="mb-4">Prin accesarea și utilizarea Platformei Edit Hunt, declarați că ați citit, înțeles și acceptat în totalitate prezentii Termeni și Condiții, precum și Politica de Confidențialitate.</p>
+        <p class="mb-4 font-semibold">Dacă nu sunteți de acord cu acești termeni, vă rugăm să nu utilizați Platforma.</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">3. ELIGIBILITATE</h2>
+        <p class="mb-4">Pentru a utiliza Platforma Edit Hunt, trebuie să îndepliniți următoarele condiții:</p>
+        <ul class="list-disc pl-5 space-y-2 mb-6">
+            <li>Să aveți minimum <strong>16 ani împliniți</strong></li>
+            <li>Dacă aveți între 16-18 ani, este necesar acordul părintelui sau tutorelui legal pentru utilizarea Platformei și efectuarea de tranzacții</li>
+            <li>Să furnizați informații corecte și complete la înregistrare</li>
+            <li>Să dețineți capacitate juridică deplină de exercițiu</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">4. ÎNREGISTRARE ȘI CONT DE UTILIZATOR</h2>
+        <h3 class="text-xl font-semibold mt-6 mb-2">4.1 Crearea contului</h3>
+        <p class="mb-4">Pentru a utiliza serviciile Platformei, trebuie să vă creați un cont furnizând: Nume complet, Adresă de email validă, Parolă sigură și alte informații relevante solicitate.</p>
+
+        <h3 class="text-xl font-semibold mt-6 mb-2">4.2 Securitatea contului</h3>
+        <p class="mb-4">Sunteți responsabil pentru păstrarea confidențialității datelor de autentificare și pentru toate activitățile desfășurate sub contul dumneavoastră.</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">5. FUNCȚIONAREA PLATFORMEI</h2>
+        
+        <h3 class="text-xl font-semibold mt-6 mb-2">5.1 Pentru Content Creatori</h3>
+        <ul class="list-disc pl-5 space-y-2 mb-6">
+            <li><strong>Încărcarea proiectelor:</strong> Trebuie să specifice prețul (minim 20 RON), termenul limită și instrucțiuni clare.</li>
+            <li><strong>Tipuri de proiecte:</strong>
+                <ul class="list-none pl-5 mt-2 space-y-1">
+                    <li><em>a) Clipping Projects:</em> Drepturile de autor aparțin Editorului.</li>
+                    <li><em>b) Full Edit Projects:</em> Drepturile de autor aparțin Content Creatorului.</li>
+                </ul>
+            </li>
+            <li><strong>Selecția:</strong> Decizia Content Creatorului este finală.</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold mt-6 mb-2">5.2 Pentru Editori</h3>
+        <ul class="list-disc pl-5 space-y-2 mb-6">
+            <li><strong>Participare:</strong> Pot participa la oricâte concursuri doresc înainte de termenul limită.</li>
+            <li><strong>Sample-uri:</strong> Minim 30 secunde sau 10% din video. Fără watermark-uri excesive.</li>
+            <li><strong>Livrarea finală:</strong> Câștigătorul trebuie să livreze versiunea finală în 7 zile.</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">6. SISTEM DE PLATĂ ȘI RECOMPENSE</h2>
+        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg mb-6">
+            <h3 class="text-lg font-bold mb-3">Distribuirea Recompenselor:</h3>
+            <ul class="space-y-2">
+                <li><strong>Comision Platformă:</strong> 3,5% din prețul inițial</li>
+                <li><strong>Locul 1 (Câștigător):</strong> 70% din suma rămasă</li>
+                <li><strong>Locul 2:</strong> 10% din suma rămasă</li>
+                <li><strong>Locul 3:</strong> 10% din suma rămasă</li>
+                <li><strong>Locul 4:</strong> 10% din suma rămasă</li>
+            </ul>
+        </div>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">7. DREPTURI DE PROPRIETATE INTELECTUALĂ</h2>
+        <p class="mb-4">Content Creatorii declară că dețin drepturile asupra materialului brut. Pentru proiectele "Full Edit", editorul cedează drepturile de autor creatorului. Pentru "Clipping", editorul păstrează drepturile.</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">8. CONȚINUT INTERZIS</h2>
+        <p class="mb-4 text-red-600 font-semibold">Este strict interzisă încărcarea de conținut care încalcă legea, conține violență grafică, pornografie, discurs instigator la ură sau încalcă drepturi de autor.</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">9. RĂSPUNDEREA PLATFORMEI</h2>
+        <p class="mb-4">Edit Hunt este un intermediar și nu garantează calitatea serviciilor sau rezultatul concursurilor. Platforma este oferită "as is".</p>
+
+        <hr class="my-12 border-gray-200 dark:border-gray-700">
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">DATE DE CONTACT</h2>
+        <p><strong>EDIT HUNT S.R.L.</strong></p>
+        <p>Str. Nicolae Romanescu nr. 15, Craiova, jud. Dolj, România</p>
+        <p>Email: <a href="mailto:contact@edithunt.ro" class="text-purple-600 hover:underline">contact@edithunt.ro</a></p>
+    </div>
+</div>
+{% endblock %}
