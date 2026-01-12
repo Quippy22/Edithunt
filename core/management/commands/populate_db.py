@@ -17,7 +17,7 @@ class Command(BaseCommand):
         Tag.objects.all().delete()
         CustomUser.objects.exclude(is_superuser=True).delete()
 
-        fake = Faker()
+        fake = Faker('ro_RO')
         
         # 1. Create Tags
         self.stdout.write('Creating tags...')
