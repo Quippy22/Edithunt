@@ -1,11 +1,45 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // --- Filter Form Reset Logic ---
     const form = document.getElementById('filter-form');
-    if (form) {
-        // Use event delegation to listen for changes on form inputs
-        form.addEventListener('change', function(event) {
-            // We can add checks here if we want to exclude certain inputs
-            // from triggering an auto-submit, but for now, any change will submit.
+    const resetBtn = document.getElementById('reset-filters');
+
+    if (resetBtn && form) {
+        resetBtn.addEventListener('click', function() {
+            const inputs = form.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                if (input.type === 'text' || input.type === 'number') {
+                    input.value = '';
+                } else if (input.tagName === 'SELECT') {
+                     if (input.multiple) {
+                        Array.from(input.options).forEach(option => option.selected = false);
+                    } else {
+                         input.selectedIndex = 0;
+                    }
+                }
+            });
             form.submit();
+        });
+    }
+
+    // --- Back to Top Button Logic ---
+    const backToTopBtn = document.getElementById('back-to-top');
+    
+    if (backToTopBtn) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     }
 });
