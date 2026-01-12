@@ -11,6 +11,12 @@ def open_browser():
 if __name__ == "__main__":
     # Point to the settings file
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "edithunt.settings")
+
+    # Fix for --windowed mode (no console) causing crash when Django writes to stdout
+    if sys.stdout is None:
+        sys.stdout = open(os.devnull, "w")
+    if sys.stderr is None:
+        sys.stderr = open(os.devnull, "w")
     
     # Schedule the browser to open in 1.5 seconds
     Timer(1.5, open_browser).start()
