@@ -11,19 +11,32 @@ def open_browser():
 if __name__ == "__main__":
     # Point to the settings file
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "edithunt.settings")
+    
+    # FORCE DEBUG=True for presentation to see errors in browser
+    # This overrides settings.py for this run script only
+    os.environ["DEBUG"] = "True"
 
-    # Fix for --windowed mode (no console) causing crash when Django writes to stdout
-    if sys.stdout is None:
-        sys.stdout = open(os.devnull, "w")
-    if sys.stderr is None:
-        sys.stderr = open(os.devnull, "w")
-    
-    # Schedule the browser to open in 1.5 seconds
-    Timer(1.5, open_browser).start()
-    
-    # Run the server. 
-    # --noreload is CRITICAL for .exe files (autoloader breaks them)
-    # --insecure allows serving static files without DEBUG=True
-    sys.argv = [sys.argv[0], "runserver", "127.0.0.1:8000", "--noreload", "--insecure"]
-    
-    execute_from_command_line(sys.argv)
+    # Fix for --windowed mode: Redirect stdout/stderr to a file instead of devnull
+    # This lets us see why it crashes if it fails before the browser opens
+    log_path = os.path.join(os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else '.', 'debug.log')
+    try:
+        if sys.stdout is None:
+            sys.stdout = open(log_path, "a")
+        if sys.stderr is None:
+            sys.stderr = open(log_path, "a")
+    except Exception:
+        pass # If we can't write logs, we just continue
+
+    try:
+        # Schedule the browser to open in 1.5 seconds
+        Timer(1.5, open_browser).start()
+        
+        # Run the server. 
+        sys.argv = [sys.argv[0], "runserver", "127.0.0.1:8000", "--noreload", "--insecure"]
+        execute_from_command_line(sys.argv)
+    except Exception as e:
+        # Last ditch effort to catch startup crashes
+        with open("CRITICAL_ERROR.txt", "w") as f:
+            import traceback
+            f.write(traceback.format_exc())
+        raise
