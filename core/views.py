@@ -119,9 +119,9 @@ class BountyBoardView(ListView):
     def get_paginate_by(self, queryset):
         """
         Determines the number of items per page from a URL query parameter.
-        Defaults to 10 if the parameter is not provided.
+        Defaults to 6 if the parameter is not provided.
         """
-        return self.request.GET.get("paginate_by", 10)
+        return self.request.GET.get("paginate_by", 6)
 
     def get_queryset(self):
         """
