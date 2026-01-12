@@ -27,6 +27,13 @@ class SignUpView(CreateView):
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
 
+    def form_valid(self, form):
+        # Save the user and log them in immediately
+        user = form.save()
+        login(self.request, user)
+        # Redirect to the home page or whatever the success_url is (overriding the default behavior)
+        return redirect("home")
+
 
 class CustomLoginView(LoginView):
     """
