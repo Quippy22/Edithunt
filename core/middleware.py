@@ -13,9 +13,9 @@ class SmartLanguageMiddleware:
         language_code = 'en'
 
         # 1. Check Top-Level Domain (TLD)
-        if host.endswith('.ro'):
+        if host.endswith('.ro') or 'localhost' in host:
             language_code = 'ro'
-        elif host.endswith('.com') or host.endswith('.net') or host.endswith('.org') or 'localhost' in host:
+        elif host.endswith('.com') or host.endswith('.net') or host.endswith('.org'):
             # 2. Fallback to GeoIP for generic domains
             language_code = self.get_language_from_ip(request)
 
