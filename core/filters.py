@@ -5,6 +5,7 @@ from django import forms
 from django.db.models import Q
 from django.db.models.functions import Coalesce
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from .models import Bounty, Tag
 
@@ -18,25 +19,25 @@ class BountyFilter(django_filters.FilterSet):
     # Text Search Filter
     search = django_filters.CharFilter(
         method="filter_by_search",
-        label="Search",
-        widget=forms.TextInput(attrs={"class": "form-input", "placeholder": "Search bounties..."}),
+        label=_("Search"),
+        widget=forms.TextInput(attrs={"class": "form-input", "placeholder": _("Search bounties...")}),
     )
 
     # Tag Filter
     tags = django_filters.ModelMultipleChoiceFilter(
         queryset=Tag.objects.all(),
-        label="Tags",
+        label=_("Tags"),
         widget=forms.SelectMultiple(attrs={"class": "form-input h-32"}), # Simple multi-select box
     )
 
     # Budget Filtering Logic
     budget_min = django_filters.NumberFilter(
-        label="Min Budget",
+        label=_("Min Budget"),
         method=lambda qs, n, v: qs,
         widget=forms.NumberInput(attrs={"class": "form-input", "step": "0.01"}),
     )
     budget_max = django_filters.NumberFilter(
-        label="Max Budget",
+        label=_("Max Budget"),
         method=lambda qs, n, v: qs,
         widget=forms.NumberInput(attrs={"class": "form-input", "step": "0.01"}),
     )
@@ -44,7 +45,7 @@ class BountyFilter(django_filters.FilterSet):
     # Posted Within Logic
     posted_within = django_filters.NumberFilter(
         method="filter_by_posted_within",
-        label="Posted within",
+        label=_("Posted within"),
         widget=forms.NumberInput(
             attrs={"class": "form-input", "placeholder": "e.g., 3"}
         ),
@@ -52,9 +53,9 @@ class BountyFilter(django_filters.FilterSet):
     
     # Unit Selector for 'Posted Within'
     posted_within_unit = django_filters.ChoiceFilter(
-        choices=[("days", "Days"), ("hours", "Hours")],
+        choices=[("days", _("Days")), ("hours", _("Hours"))],
         method=lambda qs, n, v: qs,
-        label="Time unit",
+        label=_("Time unit"),
         empty_label=None,
         initial="days",
         widget=forms.Select(attrs={"class": "form-input"}),

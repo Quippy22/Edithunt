@@ -6,7 +6,7 @@
     <!-- Card-like container for the login form -->
     <div class="auth-card">
         <!-- Heading for the login form -->
-        <h2 class="auth-heading">Log In</h2>
+        <h2 class="auth-heading">Autentificare</h2>
         <!-- Login form -->
         <form method="post" class="auth-form">
             {% csrf_token %}
@@ -39,12 +39,12 @@
             <!-- Submit button for the form -->
             <div class="flex items-center justify-between mt-6">
                 <button type="submit" class="btn-primary">
-                    Log In
+                    Autentificare
                 </button>
             </div>
             <!-- Link to the signup page for users who don't have an account -->
             <p class="auth-form-footer">
-                Don't have an account? <a href="{% url 'signup' %}" class="auth-link">Sign Up</a>
+                Nu ai cont? <a href="{% url 'signup' %}" class="auth-link">Înregistrează-te</a>
             </p>
         </form>
     </div>

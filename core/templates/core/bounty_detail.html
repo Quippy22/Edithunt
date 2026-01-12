@@ -8,7 +8,7 @@
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ bounty.title }}</h1>
                     <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        Posted by: {{ bounty.creator.username }} on {{ bounty.created_at|date:"M d, Y" }}
+                        Postat de: {{ bounty.creator.username }} pe {{ bounty.created_at|date:"d M Y" }}
                     </p>
                     
                     <div class="mt-3 flex flex-wrap gap-2">
@@ -24,7 +24,7 @@
                     <div class="mt-1">
                         {% remaining_time_display bounty.deadline as time_left %}
                         <p class="font-bold {{ time_left.class }}">{{ time_left.text }}</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Deadline: {{ bounty.deadline|date:"M d, Y H:i" }}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Termen limită: {{ bounty.deadline|date:"d M Y H:i" }}</p>
                     </div>
                 </div>
             </div>
@@ -33,44 +33,42 @@
 
             <!-- Bounty Description -->
             <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Description</h2>
-                <div class="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200 whitespace-pre-wrap">
-                    {{ bounty.description }}
-                </div>
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Descriere</h2>
+                <div class="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{{ bounty.description }}</div>
             </div>
             
             <!-- Footage Link -->
             <div class="mb-8 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-700">
-                <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Raw Footage</h2>
+                <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Material Brut</h2>
                 <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                    Download the raw footage to start editing. Make sure to follow the instructions in the description.
+                    Descarcă materialul brut pentru a începe editarea. Asigură-te că urmezi instrucțiunile din descriere.
                 </p>
                 <a href="{{ bounty.footage_link }}" target="_blank" rel="noopener noreferrer" class="btn-secondary inline-flex items-center">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                    Download Footage
+                    Descarcă Materialul
                 </a>
             </div>
 
             <!-- Submission Section -->
             <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Submit Your Work</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Trimite Lucrarea</h2>
                 {% if user.role == 'editor' %}
                     <form method="post" class="space-y-4 max-w-xl">
                         {% csrf_token %}
                         <div>
-                            <label for="{{ form.file_link.id_for_label }}" class="form-label mb-1">Link to Edited Video (YouTube, Google Drive, etc.):</label>
+                            <label for="{{ form.file_link.id_for_label }}" class="form-label mb-1">Link către Video Editat (YouTube, Google Drive, etc.):</label>
                             {{ form.file_link }}
                             {% if form.file_link.errors %}
                                 <p class="text-red-500 text-sm mt-1">{{ form.file_link.errors.0 }}</p>
                             {% endif %}
                         </div>
-                        <button type="submit" class="btn-primary w-full sm:w-auto">Submit Work</button>
+                        <button type="submit" class="btn-primary w-full sm:w-auto">Trimite</button>
                     </form>
                 {% elif user == bounty.creator %}
-                    <p class="text-gray-600 dark:text-gray-400 italic">You are the creator of this bounty.</p>
-                    <a href="{% url 'view_submissions' bounty.pk %}" class="btn-primary mt-2 inline-block">View Submissions</a>
+                    <p class="text-gray-600 dark:text-gray-400 italic">Ești creatorul acestei recompense.</p>
+                    <a href="{% url 'view_submissions' bounty.pk %}" class="btn-primary mt-2 inline-block">Vezi Propuneri</a>
                 {% else %}
-                     <p class="text-gray-600 dark:text-gray-400 italic">Only editors can submit work.</p>
+                     <p class="text-gray-600 dark:text-gray-400 italic">Doar editorii pot trimite lucrări.</p>
                 {% endif %}
             </div>
         </div>

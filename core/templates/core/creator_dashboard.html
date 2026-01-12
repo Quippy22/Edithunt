@@ -4,9 +4,9 @@
     <div class="container mx-auto px-4 py-8">
         <!-- Page heading -->
         <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Your Bounties</h1>
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Recompensele Tale</h1>
             <a href="{% url 'post_bounty' %}" class="btn-primary flex items-center shadow-lg shadow-purple-500/20">
-                <span class="mr-2">+</span> Post New Bounty
+                <span class="mr-2">+</span> Postează Recompensă Nouă
             </a>
         </div>
         {% if bounties %}
@@ -23,12 +23,12 @@
                             <div class="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
                                 <span>
                                     {% if bounty.budget_max %}
-                                        {{ bounty.budget_min }} - {{ bounty.budget_max }} EUR
+                                        {{ bounty.budget_min }} - {{ bounty.budget_max }} RON
                                     {% else %}
-                                        {{ bounty.budget_min }} EUR
+                                        {{ bounty.budget_min }} RON
                                     {% endif %}
                                 </span>
-                                <span>{{ bounty.deadline|date:"M d, Y" }}</span>
+                                <span>{{ bounty.deadline|date:"d M Y" }}</span>
                             </div>
                         </div>
                     </a>
@@ -36,9 +36,9 @@
             </div>
         {% else %}
             <!-- Message displayed if no bounties have been posted -->
-            <p class="text-gray-700 dark:text-gray-300">You haven't posted any bounties yet.</p>
+            <p class="text-gray-700 dark:text-gray-300">Nu ai postat nicio recompensă încă.</p>
             <!-- Link to post a new bounty -->
-            <a href="{% url 'post_bounty' %}" class="btn-primary mt-4 inline-block">Post a New Bounty</a>
+            <a href="{% url 'post_bounty' %}" class="btn-primary mt-4 inline-block">Postează o Nouă Recompensă</a>
         {% endif %}
     </div>
 {% endblock %}

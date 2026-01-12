@@ -1,85 +1,85 @@
 {% extends 'theme/base.html' %}
-{% load static %}
+{% load i18n static %}
 {% load crispy_forms_tags %}
 {% load bounty_helpers %}
 {% block content %}
     <div class="container mx-auto px-4 py-6 relative">
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Bounty Board</h1>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Panou de Recompense</h1>
         
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
             <!-- Left Column: Filters -->
             <aside class="lg:col-span-1">
                 <div class="bounty-filter-card">
-                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Filter & Sort</h2>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Filtrare și Sortare</h2>
                     <form method="get" id="filter-form" class="space-y-6">
                         <!-- Search -->
                         <div>
-                            <label for="{{ filter.form.search.id_for_label }}" class="form-label">{{ filter.form.search.label }}</label>
+                            <label for="{{ filter.form.search.id_for_label }}" class="form-label">Căutare</label>
                             {{ filter.form.search }}
                         </div>
                         
                         <!-- Tags -->
                         <div>
-                            <label for="{{ filter.form.tags.id_for_label }}" class="form-label">{{ filter.form.tags.label }}</label>
+                            <label for="{{ filter.form.tags.id_for_label }}" class="form-label">Tag-uri</label>
                             {{ filter.form.tags }}
-                            <p class="text-xs text-gray-500 mt-1">Hold Ctrl/Cmd to select multiple</p>
+                            <p class="text-xs text-gray-500 mt-1">Ține Ctrl/Cmd pentru selecție multiplă</p>
                         </div>
 
                         <div>
-                            <label for="{{ filter.form.budget_min.id_for_label }}" class="form-label">{{ filter.form.budget_min.label }}</label>
+                            <label for="{{ filter.form.budget_min.id_for_label }}" class="form-label">Buget Minim</label>
                             {{ filter.form.budget_min }}
                         </div>
                         <div>
-                            <label for="{{ filter.form.budget_max.id_for_label }}" class="form-label">{{ filter.form.budget_max.label }}</label>
+                            <label for="{{ filter.form.budget_max.id_for_label }}" class="form-label">Buget Maxim</label>
                             {{ filter.form.budget_max }}
                         </div>
                         <!-- Posted Within Filter -->
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label for="{{ filter.form.posted_within.id_for_label }}" class="form-label">
-                                    {{ filter.form.posted_within.label }}
+                                    Postat în ultimele
                                 </label>
                                 {{ filter.form.posted_within }}
                             </div>
                             <div>
                                 <label for="{{ filter.form.posted_within_unit.id_for_label }}"
-                                       class="form-label">{{ filter.form.posted_within_unit.label }}</label>
+                                       class="form-label">Unitate timp</label>
                                        {{ filter.form.posted_within_unit }}
                             </div>
                         </div>
                         <!-- Sort By Dropdown -->
                         <div>
-                            <label for="sort" class="form-label">Sort By</label>
+                            <label for="sort" class="form-label">Sortează după</label>
                             <select name="sort" id="sort" class="bounty-filter-select">
                                 <option value="deadline_asc"
                                         {% if not request.GET.sort or request.GET.sort == 'deadline_asc' %}selected{% endif %}>
-                                    Deadline (Asc)
+                                    Termen limită (Cresc)
                                 </option>
                                 <option value="deadline_desc"
                                         {% if request.GET.sort == 'deadline_desc' %}selected{% endif %}>
-                                    Deadline (Desc)
+                                    Termen limită (Desc)
                                 </option>
                                 <option value="created_at_desc"
                                         {% if request.GET.sort == 'created_at_desc' %}selected{% endif %}>
-                                    Posted (Newest)
+                                    Postat (Noi)
                                 </option>
                                 <option value="created_at_asc"
                                         {% if request.GET.sort == 'created_at_asc' %}selected{% endif %}>
-                                    Posted (Oldest)
+                                    Postat (Vechi)
                                 </option>
                                 <option value="budget_asc"
                                         {% if request.GET.sort == 'budget_asc' %}selected{% endif %}>
-                                    Budget (Asc)
+                                    Buget (Cresc)
                                 </option>
                                 <option value="budget_desc"
                                         {% if request.GET.sort == 'budget_desc' %}selected{% endif %}>
-                                    Budget (Desc)
+                                    Buget (Desc)
                                 </option>
                             </select>
                         </div>
                         <!-- Items Per Page -->
                         <div>
-                            <label for="paginate_by" class="form-label">Show Per Page</label>
+                            <label for="paginate_by" class="form-label">Afișează pe pagină</label>
                             <select name="paginate_by" id="paginate_by" class="bounty-filter-select">
                                 <option value="6" {% if request.GET.paginate_by == '6' %}selected{% endif %}>6</option>
                                 <option value="12"
@@ -91,8 +91,8 @@
                         
                         <!-- Buttons -->
                         <div class="flex flex-col gap-2">
-                            <button type="submit" class="btn-primary w-full">Apply Filters</button>
-                            <button type="button" id="reset-filters" class="btn-secondary w-full text-center">Reset Filters</button>
+                            <button type="submit" class="btn-primary w-full">Aplică Filtre</button>
+                            <button type="button" id="reset-filters" class="btn-secondary w-full text-center">Resetează Filtre</button>
                         </div>
                     </form>
                 </div>
@@ -107,7 +107,7 @@
                                 <div class="flex justify-between items-start mb-2">
                                     <div>
                                         <h2 class="bounty-card-title">{{ bounty.title }}</h2>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">by {{ bounty.creator.username }}</p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">de {{ bounty.creator.username }}</p>
                                     </div>
                                     <div class="text-right ml-6 flex-shrink-0">
                                         <span class="bounty-card-budget">{{ bounty.budget_min }}
@@ -129,7 +129,7 @@
                                             {% remaining_time_display bounty.deadline as time_left %}
                                             <p class="text-sm font-bold {{ time_left.class }}">{{ time_left.text }}</p>
                                         </div>
-                                        <a href="{% url 'bounty_detail' bounty.pk %}" class="btn-primary text-sm px-4 py-2">View</a>
+                                        <a href="{% url 'bounty_detail' bounty.pk %}" class="btn-primary text-sm px-4 py-2">Vezi</a>
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                         <div class="flex justify-center mt-8 space-x-2">
                             {% if page_obj.has_previous %}
                                 <a href="?page={{ page_obj.previous_page_number }}&{{ query_params }}"
-                                   class="pagination-button">Previous</a>
+                                   class="pagination-button">Anterior</a>
                             {% endif %}
                             {% for i in paginator.page_range %}
                                 {% if page_obj.number == i %}
@@ -151,14 +151,14 @@
                             {% endfor %}
                             {% if page_obj.has_next %}
                                 <a href="?page={{ page_obj.next_page_number }}&{{ query_params }}"
-                                   class="pagination-button">Next</a>
+                                   class="pagination-button">Următor</a>
                             {% endif %}
                         </div>
                     {% endif %}
                 {% else %}
                     <div class="text-center py-12">
-                        <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">No bounties match your criteria.</p>
-                        <a href="{% url 'bounty_board' %}" class="text-purple-600 hover:underline">Clear all filters</a>
+                        <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">Nicio recompensă nu corespunde criteriilor.</p>
+                        <a href="{% url 'bounty_board' %}" class="text-purple-600 hover:underline">Șterge toate filtrele</a>
                     </div>
                 {% endif %}
             </div>

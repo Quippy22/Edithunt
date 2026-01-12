@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -61,7 +60,6 @@ msgid "Stats"
 msgstr ""
 
 #: core/templates/core/profile.html:64
-#, fuzzy
 #| msgid "Bounties"
 msgid "Bounties Posted"
 msgstr "Recompense"
@@ -95,7 +93,6 @@ msgid "No active bounties."
 msgstr ""
 
 #: core/templates/core/profile.html:119
-#, fuzzy
 #| msgid "Post a Bounty"
 msgid "Won Bounty:"
 msgstr "Postează o Recompensă"
@@ -256,17 +253,15 @@ msgstr "Română"
 
 #: theme/templates/home.html:10
 msgid "The ultimate marketplace for video creators and editors."
-msgstr ""
+msgstr "Piața supremă pentru creatorii și editorii video."
 
 #: theme/templates/home.html:15
 msgid "Dashboard"
-msgstr ""
+msgstr "Panou de Control"
 
 #: theme/templates/home.html:17
-#, fuzzy
-#| msgid "Bounties"
 msgid "Browse Bounties"
-msgstr "Recompense"
+msgstr "Răsfoiește Recompense"
 
 #: theme/templates/home.html:20
 msgid "Get Started"
@@ -290,11 +285,7 @@ msgid ""
 "a full-length documentary, post a bounty and let the talent come to you. "
 "Focus on filming and storytelling while we handle the post-production "
 "logistics."
-msgstr ""
-"Nu mai pierde ore întregi în timeline. Indiferent dacă ai nevoie de un "
-"montaj rapid pentru social media sau de un documentar de lung metraj, "
-"postează o recompensă și lasă talentul să vină la tine. Concentrează-te pe "
-"filmare și poveste în timp ce noi ne ocupăm de logistica post-producției."
+msgstr "Nu mai pierde ore întregi în timeline. Indiferent dacă ai nevoie de un montaj rapid pentru social media sau de un documentar de lung metraj, postează o recompensă și lasă talentul să vină la tine. Concentrează-te pe filmare și poveste în timp ce noi ne ocupăm de logistica post-producției."
 
 #: theme/templates/home.html:49
 msgid "Access a global pool of talent."
@@ -316,20 +307,14 @@ msgstr "Nicio Muncă Nu Este Irosită."
 msgid ""
 "We believe every edit tells a story. Even if your submission doesn't win the "
 "bounty, it automatically becomes a permanent part of your on-site portfolio."
-msgstr ""
-"Credem că fiecare montaj spune o poveste. Chiar dacă propunerea ta nu "
-"câștigă recompensa, aceasta devine automat o parte permanentă a "
-"portofoliului tău pe site."
+msgstr "Credem că fiecare montaj spune o poveste. Chiar dacă propunerea ta nu câștigă recompensa, aceasta devine automat o parte permanentă a portofoliului tău pe site."
 
 #: theme/templates/home.html:77
 msgid ""
 "Showcase your skills, collect ratings from real creators, and let your "
 "profile become your resume. Clients can contact you directly based on your "
 "body of work."
-msgstr ""
-"Demonstrează-ți abilitățile, colectează recenzii de la creatori reali și "
-"lasă profilul tău să devină CV-ul tău. Clienții te pot contacta direct pe "
-"baza lucrărilor tale."
+msgstr "Demonstrează-ți abilitățile, colectează recenzii de la creatori reali și lasă profilul tău să devină CV-ul tău. Clienții te pot contacta direct pe baza lucrărilor tale."
 
 #: theme/templates/home.html:89
 msgid "How It Works"
@@ -338,9 +323,7 @@ msgstr "Cum Funcționează"
 #: theme/templates/home.html:97
 msgid ""
 "Creators post video editing jobs with a description, budget, and deadline."
-msgstr ""
-"Creatorii postează joburi de editare video cu o descriere, buget și termen "
-"limită."
+msgstr "Creatorii postează joburi de editare video cu o descriere, buget și termen limită."
 
 #: theme/templates/home.html:105
 msgid "Editors Compete"
@@ -348,8 +331,7 @@ msgstr "Editorii Competă"
 
 #: theme/templates/home.html:106
 msgid "Skilled editors submit their best work to win the bounty."
-msgstr ""
-"Editorii talentați trimit cele mai bune lucrări pentru a câștiga recompensa."
+msgstr "Editorii talentați trimit cele mai bune lucrări pentru a câștiga recompensa."
 
 #: theme/templates/home.html:113
 msgid "Choose a Winner"
@@ -357,59 +339,57 @@ msgstr "Alege Câștigătorul"
 
 #: theme/templates/home.html:114
 msgid "Creators review submissions and award the bounty to the best editor."
-msgstr ""
-"Creatorii analizează propunerile și acordă recompensa celui mai bun editor."
+msgstr "Creatorii analizează propunerile și acordă recompensa celui mai bun editor."
 
 #: theme/templates/home.html:126
 msgid "Why Creators Choose Us"
-msgstr ""
+msgstr "De ce ne aleg Creatorii"
 
 #: theme/templates/home.html:129
 msgid "We built Edithunt to solve the biggest pain points in content creation."
-msgstr ""
+msgstr "Am construit Edithunt pentru a rezolva cele mai mari probleme în crearea de conținut."
 
 #: theme/templates/home.html:139
 msgid "Lightning Fast Turnaround"
-msgstr ""
+msgstr "Execuție Ultra-Rapidă"
 
 #: theme/templates/home.html:141
 msgid ""
 "Get your edits back in hours, not days. Multiple editors working "
 "simultaneously means you always meet your deadline."
-msgstr ""
+msgstr "Primești editările în ore, nu zile. Mai mulți editori lucrând simultan înseamnă că îți respecți mereu termenul limită."
 
 #: theme/templates/home.html:150
 msgid "Secure Payments"
-msgstr ""
+msgstr "Plăți Securizate"
 
 #: theme/templates/home.html:152
 msgid ""
 "Your budget is held safely in escrow. Funds are only released to the editor "
 "once you approve the final delivery."
-msgstr ""
+msgstr "Bugetul tău este păstrat în siguranță (escrow). Fondurile sunt eliberate editorului doar după ce aprobi livrarea finală."
 
 #: theme/templates/home.html:161
 msgid "Top Tier Talent"
-msgstr ""
+msgstr "Talent de Top"
 
 #: theme/templates/home.html:163
 msgid ""
 "Access a vetted network of creative editors who understand social media "
 "trends and storytelling."
-msgstr ""
+msgstr "Acces la o rețea verificată de editori creativi care înțeleg trendurile social media și storytelling-ul."
 
 #: theme/templates/home.html:173
 msgid "A Global Creative Network"
-msgstr ""
+msgstr "O Rețea Creativă Globală"
 
 #: theme/templates/home.html:175
 msgid ""
 "Stop letting raw footage gather dust. Connect with editors from over 50 "
 "countries who are ready to turn your content into viral gold."
-msgstr ""
+msgstr "Nu lăsa materialele brute să adune praf. Conectează-te cu editori din peste 50 de țări gata să transforme conținutul tău în aur viral."
 
 #: theme/templates/home.html:183
-#, fuzzy
 #| msgid "Join the Hunt Today"
 msgid "Join the Movement"
 msgstr "Alătură-te Vânătorii Astăzi"
@@ -474,12 +454,10 @@ msgstr "Deconectare"
 msgid "Login"
 msgstr "Autentificare"
 
-#, fuzzy
 #~| msgid "Editors Compete"
 #~ msgid "Editors Hunt"
 #~ msgstr "Editorii Competă"
 
-#, fuzzy
 #~| msgid "How It Works"
 #~ msgid "Buy What Works"
 #~ msgstr "Cum Funcționează"
@@ -530,3 +508,54 @@ msgstr "Autentificare"
 
 #~ msgid "Assisted by"
 #~ msgstr "Asistat de"
+
+msgid "Filter & Sort"
+msgstr "Filtrare și Sortare"
+
+msgid "Apply Filters"
+msgstr "Aplică Filtre"
+
+msgid "Reset Filters"
+msgstr "Resetează Filtre"
+
+
+msgid "Search"
+msgstr "Căutare"
+
+msgid "Search bounties..."
+msgstr "Caută recompense..."
+
+msgid "Tags"
+msgstr "Tag-uri"
+
+msgid "Min Budget"
+msgstr "Buget Minim"
+
+msgid "Max Budget"
+msgstr "Buget Maxim"
+
+msgid "Posted within"
+msgstr "Postat în ultimele"
+
+msgid "Time unit"
+msgstr "Unitate de timp"
+
+msgid "Days"
+msgstr "Zile"
+
+msgid "Hours"
+msgstr "Ore"
+
+
+msgid "Your password can’t be too similar to your other personal information."
+msgstr "Parola nu poate fi prea asemănătoare cu celelalte informații personale."
+
+msgid "Your password must contain at least 8 characters."
+msgstr "Parola trebuie să conțină cel puțin 8 caractere."
+
+msgid "Your password can’t be a commonly used password."
+msgstr "Parola nu poate fi o parolă utilizată frecvent."
+
+msgid "Your password can’t be entirely numeric."
+msgstr "Parola nu poate fi formată doar din cifre."
+

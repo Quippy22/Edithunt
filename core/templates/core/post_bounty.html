@@ -7,31 +7,31 @@
             <!-- Tip 1: Detailed Descriptions -->
             <div class="rounded-lg shadow-lg p-6 text-center">
                 <div class="text-purple-500 mb-4">{% include 'partials/icons/clipboard-list.html' %}</div>
-                <h3 class="text-xl font-bold mb-2 dark:text-white">Detailed Descriptions</h3>
+                <h3 class="text-xl font-bold mb-2 dark:text-white">Descrieri Detaliate</h3>
                 <p class="text-gray-600 dark:text-gray-400">
-                    Provide a detailed and explicit description of your editing request. The more details you provide, the better the results will be.
+                    Oferă o descriere detaliată și explicită a cererii tale. Cu cât oferi mai multe detalii, cu atât rezultatele vor fi mai bune.
                 </p>
             </div>
             <!-- Tip 2: Reasonable Deadlines -->
             <div class="rounded-lg shadow-lg p-6 text-center">
                 <div class="text-purple-500 mb-4">{% include 'partials/icons/clock.html' %}</div>
-                <h3 class="text-xl font-bold mb-2 dark:text-white">Reasonable Deadlines</h3>
+                <h3 class="text-xl font-bold mb-2 dark:text-white">Termene Rezonabile</h3>
                 <p class="text-gray-600 dark:text-gray-400">
-                    Be mindful of the deadline. Very short deadlines might discourage editors or result in lower quality submissions.
+                    Fii atent la termenul limită. Termenele foarte scurte ar putea descuraja editorii sau ar putea duce la propuneri de calitate inferioară.
                 </p>
             </div>
             <!-- Tip 3: Fair Budget -->
             <div class="rounded-lg shadow-lg p-6 text-center">
                 <div class="text-purple-500 mb-4">{% include 'partials/icons/cash.html' %}</div>
-                <h3 class="text-xl font-bold mb-2 dark:text-white">Fair Budget</h3>
+                <h3 class="text-xl font-bold mb-2 dark:text-white">Buget Corect</h3>
                 <p class="text-gray-600 dark:text-gray-400">
-                    The budget should be fair and reflect the amount of work required. You can set a fixed price by leaving the second budget field empty.
+                    Bugetul ar trebui să fie corect și să reflecte munca necesară. Poți seta un preț fix lăsând al doilea câmp de buget gol.
                 </p>
             </div>
         </div>
         <!-- Form container for posting a new bounty -->
         <div class="form-container">
-            <h1 class="form-heading">Post a New Bounty</h1>
+            <h1 class="form-heading">Postează o Nouă Recompensă</h1>
             <form method="post" class="space-y-6">
                 {% csrf_token %}
                 <!-- Loop through and render generic form fields (title, description, footage_link) -->
@@ -56,7 +56,7 @@
 
                 <!-- Custom rendering for budget fields (min and max) -->
                 <div>
-                    <label class="form-label">Budget</label>
+                    <label class="form-label">Buget</label>
                     <div class="budget-input-wrapper">
                         {{ form.budget_min }}
                         <span class="currency-label">-</span>
@@ -76,7 +76,7 @@
                 </div>
                 <!-- Submit button for the form -->
                 <div>
-                    <button type="submit" class="w-full flex justify-center btn-primary">Post Bounty</button>
+                    <button type="submit" class="w-full flex justify-center btn-primary">Postează Recompensa</button>
                 </div>
             </form>
         </div>

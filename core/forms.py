@@ -32,7 +32,7 @@ class CustomUserCreationForm(UserCreationForm):
         # We set the label here to avoid circular imports with reverse() during module loading.
         # This ensures the URL configuration is fully loaded before we try to resolve URLs.
         self.fields['terms_agreement'].label = mark_safe(
-            _('I have read and agree to the <a href="{url_terms}" target="_blank" class="text-purple-600 hover:underline">Terms & Conditions</a> and <a href="{url_privacy}" target="_blank" class="text-purple-600 hover:underline">Privacy Policy</a>.')
+            'Am citit și sunt de acord cu <a href="{url_terms}" target="_blank" class="text-purple-600 hover:underline">Termenii și Condițiile</a> și <a href="{url_privacy}" target="_blank" class="text-purple-600 hover:underline">Politica de Confidențialitate</a>.'
             .format(url_terms=reverse('terms'), url_privacy=reverse('privacy'))
         )
 
@@ -155,8 +155,8 @@ class BountyForm(forms.ModelForm):
     
     tags_input = forms.CharField(
         required=False,
-        label="Tags",
-        help_text="Enter tags separated by commas (e.g. Gaming, Vlog, Tutorial)",
+        label="Tag-uri",
+        help_text="Introdu tag-uri separate prin virgulă (ex: Gaming, Vlog, Tutorial)",
         widget=forms.TextInput(attrs={"placeholder": "Gaming, Vlog, Tutorial"})
     )
 

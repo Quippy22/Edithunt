@@ -19,10 +19,10 @@
                     {% if user.is_authenticated %}
                         <!-- Conditional links based on user role -->
                         {% if user.role == 'creator' %}
-                            <a href="{% url 'creator_dashboard' %}" class="nav-link">{% trans "My Bounties" %}</a>
-                            <a href="{% url 'post_bounty' %}" class="text-purple-600 dark:text-purple-400 font-bold hover:text-purple-700 transition-colors">{% trans "Post a Bounty" %}</a>
+                            <a href="{% url 'creator_dashboard' %}" class="nav-link">Recompensele Mele</a>
+                            <a href="{% url 'post_bounty' %}" class="text-purple-600 dark:text-purple-400 font-bold hover:text-purple-700 transition-colors">Postează o Recompensă</a>
                         {% elif user.role == 'editor' %}
-                            <a href="{% url 'bounty_board' %}" class="nav-link">{% trans "Bounties" %}</a>
+                            <a href="{% url 'bounty_board' %}" class="nav-link">Recompense</a>
                         {% endif %}
                     {% endif %}
                 </div>
@@ -64,17 +64,17 @@
                              @click.away="open = false"
                              x-transition
                              class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg py-1 z-50">
-                            <a href="{% url 'profile' user.username %}" class="dropdown-item">{% trans "View Profile" %}</a>
+                            <a href="{% url 'profile' user.username %}" class="dropdown-item">Vezi Profil</a>
                             <a href="{% url 'logout' %}"
                                class="flex items-center w-full text-left dropdown-item">
                                 {% include 'partials/icons/door.html' %}
-                                <span class="ml-2">{% trans "Logout" %}</span>
+                                <span class="ml-2">Deconectare</span>
                             </a>
                         </div>
                     </div>
                 {% else %}
                     <!-- Login Button (Guest) -->
-                    <a href="{% url 'login' %}" class="btn-primary">{% trans "Login" %}</a>
+                    <a href="{% url 'login' %}" class="btn-primary">Autentificare</a>
                 {% endif %}
             </div>
 
@@ -99,26 +99,26 @@
             <!-- Navigation Links for Mobile -->
             {% if user.is_authenticated %}
                 {% if user.role == 'creator' %}
-                    <a href="{% url 'creator_dashboard' %}" class="block py-2 nav-link">{% trans "My Bounties" %}</a>
-                    <a href="{% url 'post_bounty' %}" class="block py-2 text-purple-600 dark:text-purple-400 font-bold">{% trans "Post a Bounty" %}</a>
+                    <a href="{% url 'creator_dashboard' %}" class="block py-2 nav-link">Recompensele Mele</a>
+                    <a href="{% url 'post_bounty' %}" class="block py-2 text-purple-600 dark:text-purple-400 font-bold">Postează o Recompensă</a>
                 {% elif user.role == 'editor' %}
-                    <a href="{% url 'bounty_board' %}" class="block py-2 nav-link">{% trans "Bounties" %}</a>
+                    <a href="{% url 'bounty_board' %}" class="block py-2 nav-link">Recompense</a>
                 {% endif %}
             {% endif %}
             
             <!-- Auth Links for Mobile -->
             {% if user.is_authenticated %}
                 <div class="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                    <a href="{% url 'profile' user.username %}" class="block py-2 nav-link">{% trans "View Profile" %}</a>
+                    <a href="{% url 'profile' user.username %}" class="block py-2 nav-link">Vezi Profil</a>
                     <a href="{% url 'logout' %}"
                        class="flex items-center w-full text-left py-2 nav-link">
                         {% include 'partials/icons/door.html' %}
-                        <span class="ml-2">{% trans "Logout" %}</span>
+                        <span class="ml-2">Deconectare</span>
                     </a>
                 </div>
             {% else %}
                 <div class="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                    <a href="{% url 'login' %}" class="block w-full text-center btn-primary">{% trans "Login" %}</a>
+                    <a href="{% url 'login' %}" class="block w-full text-center btn-primary">Autentificare</a>
                 </div>
             {% endif %}
         </div>
