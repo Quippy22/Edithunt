@@ -37,6 +37,17 @@ It's all about speed, skill, and a little bit of friendly competition to get cre
 
 ---
 
-## Developer's Notes (or: My Journey into the Digital Wilderness)
+## Developer's Notes & Demo Disclaimer
+
+**⚠️ Presentation / Prototype Status ⚠️**
+
+Please note that this repository is currently structured as a **presentation demo**. It serves as a visual and functional shell to demonstrate the concept and user flow of *Edithunt*.
+
+*   **Not Production Ready:** Many backend processes (payment processing, complex video handling, email notifications) are simulated or omitted.
+*   **"Empty Shell":** The database is intended to be populated with demo data for presentation purposes.
+
+---
+
+**My Journey into the Digital Wilderness:**
 
 As the sole architect (and occasional bug-whisperer) of this digital endeavor, I'm learning a *lot*. If you find a stray semicolon or a feature that occasionally decides to take a coffee break, please know it's all part of the "charming prototype" experience. This project is a testament to late-night coding sessions, countless `print()` statements, and the unwavering belief that one day, I'll understand why that one CSS rule just won't apply. It's a work in progress, much like my understanding of full-stack development!
